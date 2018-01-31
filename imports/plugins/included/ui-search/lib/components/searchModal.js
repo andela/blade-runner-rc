@@ -98,6 +98,9 @@ class SearchModal extends Component {
           {this.renderSearchInput()}
           {this.renderSearchTypeToggle()}
           {this.props.tags.length > 0 && this.renderProductSearchTags()}
+          {this.props.value.length > 1 &&
+          this.props.products.length < 1 &&
+          <h3><strong>No Product(s) Found</strong></h3>}
         </div>
         <div className="rui search-modal-results-container">
           {this.props.products.length > 0 &&
