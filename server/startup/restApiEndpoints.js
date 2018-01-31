@@ -10,6 +10,7 @@ const hasPermission = (user, role) => {
   return user.roles[Reaction.getShopId()].includes(role);
 };
 
+// eslint-disable-next-line no-undef
 const Api = new Restivus({
   useDefaultAuth: true,
   prettyJson: true,
