@@ -78,6 +78,9 @@ export default function blocks() {
         // Metadata
         {
           component: "ProductMetadata"
+        },
+        {
+          component: "ProductReview"
         }
       ]
     },
@@ -189,6 +192,9 @@ export default function blocks() {
               paddingTop: 20
             }
           }
+        },
+        {
+          component: "ProductRating"
         }
 
       ]
