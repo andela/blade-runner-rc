@@ -1,9 +1,7 @@
 import collections from "../../lib/collections";
-import Reaction from "/server/api/core";
-
+import Reaction from "../../server/api/core";
 
 /**
- *
  * @param {Object} user
  * @param {String} role
  * @returns {boolean}
@@ -11,7 +9,6 @@ import Reaction from "/server/api/core";
 const hasPermission = (user, role) => {
   return user.roles[Reaction.getShopId()].includes(role);
 };
-
 
 const Api = new Restivus({
   useDefaultAuth: true,
@@ -21,19 +18,17 @@ const Api = new Restivus({
     "Content-Type": "application/json"
   }
 });
+
 /**
- *
- *
  * @param {String} collectionName - Name of collection
  * @param {Object} collection - collection Schema
  * @param {Object} restApi - object
  * @returns none
  */
-function creatRestApiFor(collectionName, collection, restApi = Api) {
+function createRestApiFor(collectionName, collection, restApi = Api) {
   restApi.addCollection(collection, {
     path: collectionName,
-    routeOptins: { authRequired: true },
-    
+    routeOptions: { authRequired: true },
     endpoints: {
       getAll: {
         authRequired: true,
@@ -174,13 +169,14 @@ function creatRestApiFor(collectionName, collection, restApi = Api) {
 
 
 export default () => {
-  creatRestApiFor("accounts", collections.Accounts);
-  creatRestApiFor("cart", collections.Cart);
-  creatRestApiFor("emails", collections.Emails);
-  creatRestApiFor("inventory", collections.Inventory);
-  creatRestApiFor("orders", collections.Orders);
-  creatRestApiFor("products", collections.Products);
-  creatRestApiFor("shops", collections.Shops);
-  creatRestApiFor("tags", collections.Tags);
-  creatRestApiFor("shipping", collections.Shipping);
+  createRestApiFor("accounts", collections.Accounts);
+  createRestApiFor("cart", collections.Cart);
+  createRestApiFor("emails", collections.Emails);
+  createRestApiFor("inventory", collections.Inventory);
+  createRestApiFor("orders", collections.Orders);
+  createRestApiFor("products", collections.Products);
+  createRestApiFor("shops", collections.Shops);
+  createRestApiFor("tags", collections.Tags);
+  createRestApiFor("groups", collections.Groups);
+  createRestApiFor("shipping", collections.Shipping);
 };
