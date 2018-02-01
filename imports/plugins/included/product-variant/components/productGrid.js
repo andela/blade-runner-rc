@@ -1,10 +1,19 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Components } from "@reactioncommerce/reaction-components";
+import startTour from "../../tour";
 
 class ProductGrid extends Component {
   static propTypes = {
     products: PropTypes.array
+  }
+
+  componentDidMount() {
+    const hasTakenLandingPageTour = localStorage.getItem("hasTakenLandingPageTour");
+    if (!hasTakenLandingPageTour) {
+      startTour();
+      localStorage.setItem("hasTakenLandingPageTour", true);
+    }
   }
 
   renderProductGridItems = (products) => {
