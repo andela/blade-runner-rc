@@ -1,23 +1,23 @@
 [{
   "language": "English",
   "i18n": "en",
-  "ns": "example-paymentmethod",
+  "ns": "paystack-payment-method",
   "translation": {
     "reaction-payments": {
       "admin": {
         "shortcut": {
-          "examplePaymentProviderLabel": "Example Payment",
-          "examplePaymentProviderTitle": "Example Payment"
+          "PaystackPaymentProviderLabel": "Paystack Payment",
+          "PaystackPaymentProviderTitle": "Paystack Payment"
         },
         "dashboard": {
-          "examplePaymentProviderLabel": "Example Payment",
-          "examplePaymentProviderTitle": "Example Payment",
-          "examplePaymentProviderDescription": "Example Payment Method"
+          "PaystackPaymentProviderLabel": "Paystack Payment",
+          "PaystackPaymentProviderTitle": "Paystack Payment",
+          "PaystackPaymentProviderDescription": "Paystack Payment Method"
         },
         "paymentSettings": {
-          "examplePaymentLabel": "Example Provider",
-          "examplePaymentSettingsLabel": "Example Payment",
-          "exampleCredentials": "This is an example payment method setting.",
+          "PaystackPaymentLabel": "Paystack Provider",
+          "PaystackPaymentSettingsLabel": "Paystack Payment",
+          "PaystackCredentials": "This is an Paystack payment method setting.",
           "apiClientId": "API Client ID",
           "supportedMethodsLabel": "Payment provider supported methods"
         }
