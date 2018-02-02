@@ -2,7 +2,7 @@ import { Meteor } from "meteor/meteor";
 import { expect } from "meteor/practicalmeteor:chai";
 import { sinon } from "meteor/practicalmeteor:sinon";
 
-import { PaystackApi, RISKY_TEST_CARD } from "./paystackapi";
+import { PaystackApi } from "./paystackapi";
 
 const paymentMethod = {
   processor: "Generic",
@@ -29,11 +29,7 @@ describe("PaystackApi", function () {
   it("should return data from ThirdPartyAPI authorize", function () {
     const cardData = {
       name: "Test User",
-      number: "4242424242424242",
-      expireMonth: "2",
-      expireYear: "2018",
-      cvv2: "123",
-      type: "visa"
+      email: "a@mail.com"
     };
     const paymentData = {
       currency: "USD",
@@ -42,9 +38,9 @@ describe("PaystackApi", function () {
 
     const transactionType = "authorize";
     const transaction = PaystackApi.methods.authorize.call({
-      transactionType: transactionType,
-      cardData: cardData,
-      paymentData: paymentData
+      transactionType,
+      cardData,
+      paymentData
     });
     expect(transaction).to.not.be.undefined;
   });
@@ -52,11 +48,7 @@ describe("PaystackApi", function () {
   it("should return risk status for flagged test card", function () {
     const cardData = {
       name: "Test User",
-      number: RISKY_TEST_CARD,
-      expireMonth: "2",
-      expireYear: "2018",
-      cvv2: "123",
-      type: "visa"
+      email: "a@mail.com"
     };
     const paymentData = {
       currency: "USD",
@@ -77,8 +69,8 @@ describe("PaystackApi", function () {
     const authorizationId = "abc123";
     const amount = 19.99;
     const results = PaystackApi.methods.capture.call({
-      authorizationId: authorizationId,
-      amount: amount
+      authorizationId,
+      amount
     });
     expect(results).to.not.be.undefined;
     done();
@@ -104,11 +96,7 @@ describe("Submit payment", function () {
     this.timeout(30000);
     const cardData = {
       name: "Test User",
-      number: "4242424242424242",
-      expireMonth: "2",
-      expireYear: "2018",
-      cvv2: "123",
-      type: "visa"
+      email: "a@mail.com"
     };
     const paymentData = {
       currency: "USD",
@@ -133,8 +121,7 @@ describe("Submit payment", function () {
   it("should throw an error if card data is not correct", function () {
     const badCardData = {
       name: "Test User",
-      cvv2: "123",
-      type: "visa"
+      email: "a@mail.com"
     };
 
     const paymentData = {

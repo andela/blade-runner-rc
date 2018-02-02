@@ -16,7 +16,6 @@ const ThirdPartyAPI = {
       const results = {
         success: true,
         id: Random.id(),
-        cardNumber: cardData.number.slice(-4),
         amount: paymentData.total,
         currency: "USD"
       };

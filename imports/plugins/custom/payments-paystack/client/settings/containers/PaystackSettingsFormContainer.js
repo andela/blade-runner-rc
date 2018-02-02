@@ -75,7 +75,8 @@ PaystackSettingsFormContainer.propTypes = {
   packageData: PropTypes.object
 };
 
-const composer = (data = {}, onData) => {
+// eslint-disable-next-line no-empty-pattern
+const composer = ({}, onData) => {
   const subscription = Meteor.subscribe("Packages", Reaction.getShopId());
   if (subscription.ready()) {
     const packageData = Packages.findOne({

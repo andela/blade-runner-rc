@@ -15,7 +15,7 @@ Meteor.methods({
    * @param  {Object} paymentData The details of the Payment Needed
    * @return {Object} results normalized
    */
-  "paystackSubmit": function (transactionType, cardData, paymentData) {
+  "paystackSubmit": (transactionType, cardData, paymentData) => {
     check(transactionType, String);
     check(cardData, {
       name: String,
@@ -82,7 +82,7 @@ Meteor.methods({
    * @param {Object} paymentData Object containing data about the transaction to capture
    * @return {Object} results normalized
    */
-  "paystack/payment/capture": function (paymentData) {
+  "paystack/payment/capture": (paymentData) => {
     check(paymentData, Reaction.Schemas.PaymentMethod);
     const authorizationId = paymentData.transactionId;
     const amount = paymentData.amount;
@@ -103,7 +103,7 @@ Meteor.methods({
    * @param  {Number} amount The amount to be refunded
    * @return {Object} result
    */
-  "paystack/refund/create": function (paymentMethod, amount) {
+  "paystack/refund/create": (paymentMethod, amount) => {
     check(paymentMethod, Reaction.Schemas.PaymentMethod);
     check(amount, Number);
     const { transactionId } = paymentMethod;
@@ -123,7 +123,7 @@ Meteor.methods({
    * @param  {Object} paymentMethod Object containing the pertinant data
    * @return {Object} result
    */
-  "paystack/refund/list": function (paymentMethod) {
+  "paystack/refund/list": (paymentMethod) => {
     check(paymentMethod, Reaction.Schemas.PaymentMethod);
     const { transactionId } = paymentMethod;
     const response = PaystackApi.methods.refunds.call({
@@ -133,16 +133,6 @@ Meteor.methods({
     for (const refund of response.refunds) {
       result.push(refund);
     }
-
-    // The results retured from the GenericAPI just so happen to look like exactly what the dashboard
-    // wants. The return package should ba an array of objects that look like this
-    // {
-    //   type: "refund",
-    //   amount: Number,
-    //   created: Number: Epoch Time,
-    //   currency: String,
-    //   raw: Object
-    // }
     const emptyResult = [];
     return emptyResult;
   }
