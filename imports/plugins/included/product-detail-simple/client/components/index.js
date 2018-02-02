@@ -10,3 +10,4 @@ export { default as PriceRange } from "./priceRange";
 export { default as ProductNotFound } from "./productNotFound";
 export { default as ProductRating } from "./productRating";
 export { default as ProductReview } from "./productReview";
+export { default as ShopReview } from "./shopReview";

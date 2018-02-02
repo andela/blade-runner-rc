@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { ReactionProduct } from "/lib/api";
-import { ProductReviews } from "/lib/collections";
+import { Reaction } from "/client/api";
+import { ShopReviews } from "/lib/collections";
 import { registerComponent, composeWithTracker } from "@reactioncommerce/reaction-components";
 
-class ProductRating extends Component {
+class ShopRating extends Component {
   static propTypes = {
     reviews: PropTypes.arrayOf(PropTypes.any)
   };
@@ -14,8 +14,8 @@ class ProductRating extends Component {
       .reduce((total, rating) => total + rating, 0);
     const averageRating = Math.floor((sumOfRatings / reviews.length) * 100) / 100;
     return (
-      <div className="text-center">
-        <h1 className="text-center">
+      <div>
+        <h1>
           {averageRating}
         </h1>
         <small>Based on {reviews.length} ratings</small>
@@ -26,10 +26,10 @@ class ProductRating extends Component {
 
 function composer(props, onData) {
   onData(null, {
-    reviews: ProductReviews.find({ productId: ReactionProduct.selectedProductId() }, { sort: { createdAt: -1 } }).fetch()
+    reviews: ShopReviews.find({ shopId: Reaction.getShopId() }, { sort: { createdAt: -1 } }).fetch()
   });
 }
 
-registerComponent("ProductReview", ProductRating);
+registerComponent("ShopRating", ShopRating);
 
-export default composeWithTracker(composer)(ProductRating);
+export default composeWithTracker(composer)(ShopRating);
