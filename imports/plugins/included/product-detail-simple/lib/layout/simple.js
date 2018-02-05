@@ -80,6 +80,9 @@ export default function blocks() {
           component: "ProductMetadata"
         },
         {
+          component: "RateShopButton"
+        },
+        {
           component: "ProductReview"
         }
       ]
@@ -165,7 +168,6 @@ export default function blocks() {
             }
           }
         },
-
         // Variant List
         {
           component: "VariantListContainer"

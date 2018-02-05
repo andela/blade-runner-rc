@@ -46,8 +46,8 @@ class ProductReview extends React.Component {
             size={40}
             style={{ marginTop: 5 }}
             className={"img-responsive"}
-            email={"katifrantzvalliembiyekeh@gmail.com"}
-            name={"KATI FRANTZ VALLIE"}
+            email={review.email}
+            name={review.name === "" ? review.email : review.name}
             round
           />
         </div>
@@ -79,7 +79,7 @@ class ProductReview extends React.Component {
                       style={{ marginTop: 5 }}
                       className={"img-responsive"}
                       email={this.state.user.emails[0].address}
-                      name={"KATI FRANTZ VALLIE"}
+                      name={this.state.user.name === "" ? this.state.user.emails[0].address : this.state.user.name}
                       round
                     />
                   </div>

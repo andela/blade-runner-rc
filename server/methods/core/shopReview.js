@@ -1,32 +1,35 @@
 import { check } from "meteor/check";
 import { Meteor } from "meteor/meteor";
 import { Reaction } from "/server/api";
-import { shopReviews } from "/lib/collections";
+import { ShopReviews } from "/lib/collections";
 
 /**
- * @method checkUserPermissions
+ * @method cannotReview
  * @private
  * @summary Perform check to see if user is owner or admin
  * @return {Boolean} - check user permission status
  */
-function canReview() {
-  return !Reaction.hasOwnerAccess() ||
-         !Reaction.hasAdminAccess() ||
-         Reaction.hasPermission("account/profile");
+function cannotReview() {
+  return (Reaction.hasOwnerAccess() || Reaction.hasAdminAccess() || !Reaction.hasPermission("account/profile"));
 }
 
 Meteor.methods({
-  "shopReview/createReview": function (shopId, review, rating) {
+  "shopReview/createReview": function (userId, shopId, review, rating) {
+    check(userId, String);
     check(shopId, String);
     check(review, String);
     check(rating, Number);
 
-    if (!canReview()) {
+    if (cannotReview()) {
       throw new Meteor.Error(403, "Owners, admins, and unauthenticated users can't review products.");
     }
 
-    shopReviews.insert({
-      userId: Meteor.user()._id, shopId,  review, rating: parseInt(rating, 10)
+    const authUser = Meteor.user();
+
+    ShopReviews.insert({
+      userId, shopId,  review, rating: parseInt(rating, 10),
+      name: authUser.name || "",
+      email: authUser.emails[0].address
     });
   }
 });

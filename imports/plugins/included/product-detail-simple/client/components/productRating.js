@@ -12,7 +12,11 @@ class ProductRating extends Component {
     const { reviews } = this.props;
     const sumOfRatings = reviews.map(review => review.rating)
       .reduce((total, rating) => total + rating, 0);
-    const averageRating = Math.floor((sumOfRatings / reviews.length) * 100) / 100;
+    let averageRating = Math.floor((sumOfRatings / reviews.length) * 100) / 100;
+    if (isNaN(averageRating)) {
+      averageRating = 0;
+    }
+
     return (
       <div className="text-center">
         <h1 className="text-center">
@@ -30,6 +34,6 @@ function composer(props, onData) {
   });
 }
 
-registerComponent("ProductReview", ProductRating);
+registerComponent("ProductRating", ProductRating);
 
 export default composeWithTracker(composer)(ProductRating);

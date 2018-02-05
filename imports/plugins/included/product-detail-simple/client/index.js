@@ -12,7 +12,7 @@ import {
   ProductDetail,
   ProductRating,
   ProductReview,
-  ShopReview
+  RateShopButton
 } from "./components";
 
 import {
@@ -45,4 +45,6 @@ registerComponent("Divider", Divider);
 registerComponent("ProductNotFound", ProductNotFound);
 registerComponent("ProductRating", ProductRating);
 registerComponent("ProductReview", ProductReview);
-registerComponent("ShopReview", ShopReview);
+registerComponent("RateShopButton", RateShopButton);
+
+
