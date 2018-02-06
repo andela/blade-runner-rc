@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { ReactionProduct } from "/lib/api";
 import { Components, registerComponent } from "@reactioncommerce/reaction-components";
 
 class AddToCartButton extends Component {
@@ -17,15 +18,18 @@ class AddToCartButton extends Component {
     if (this.hasVariants) {
       return (
         <div className="pdp add-to-cart block">
-          <input
-            className="form-control input-md"
-            id="add-to-cart-quantity"
-            min="1"
-            name="addToCartQty"
-            onChange={this.handleCartQuantityChange}
-            type="number"
-            value={this.props.cartQuantity}
-          />
+          {
+            !ReactionProduct.selectedProduct().isDigital &&
+            <input
+              className="form-control input-md"
+              id="add-to-cart-quantity"
+              min="1"
+              name="addToCartQty"
+              onChange={this.handleCartQuantityChange}
+              type="number"
+              value={this.props.cartQuantity}
+            />
+          }
           <button
             className="input-group-addon add-to-cart-text js-add-to-cart"
             data-i18n="productDetail.addToCart"

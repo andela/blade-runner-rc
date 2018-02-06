@@ -377,6 +377,13 @@ Meteor.methods({
       throw new Meteor.Error(404, "Product not found",
         "Product with such id was not found!");
     }
+
+    if (product.isDigital && cart.items) {
+      const duplicates =  cart.items.filter(item => item.productId === productId);
+      if (duplicates.length >= 1) {
+        return;
+      }
+    }
     if (!variant) {
       Logger.warn(`Product variant: ${ variantId } was not found in database`);
       throw new Meteor.Error(404, "ProductVariant not found",

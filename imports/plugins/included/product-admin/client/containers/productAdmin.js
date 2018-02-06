@@ -141,6 +141,14 @@ function composer(props, onData) {
       };
     });
 
+    const productTypes = [{
+      label: "Physical Product",
+      value: false
+    }, {
+      label: "Digital Product",
+      value: true
+    }];
+
     const countries = Countries.find({}).fetch();
 
     onData(null, {
@@ -151,7 +159,8 @@ function composer(props, onData) {
       revisonDocumentIds,
       templates,
       countries,
-      editable
+      editable,
+      productTypes
     });
   } else {
     onData(null, {

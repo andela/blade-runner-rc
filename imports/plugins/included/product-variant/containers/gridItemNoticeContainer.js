@@ -55,6 +55,7 @@ const wrapComponent = (Comp) => (
           isLowQuantity={this.isLowQuantity}
           isSoldOut={this.isSoldOut}
           isBackorder={this.isBackorder}
+          isDigital={this.props.product.isDigital}
         />
       );
     }
