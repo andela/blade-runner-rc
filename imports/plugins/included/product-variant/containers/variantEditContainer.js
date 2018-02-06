@@ -45,6 +45,7 @@ const wrapComponent = (Comp) => (
     }
 
     render() {
+      console.log(this.props);
       return (
         <Comp
           childVariants={this.props.childVariants}

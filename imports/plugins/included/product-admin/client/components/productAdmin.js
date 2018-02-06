@@ -1,6 +1,7 @@
 import { isEqual } from "lodash";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import FileDropzone from "react-dropzone";
 import Velocity from "velocity-animate";
 import "velocity-animate/velocity.ui";
 import { Components } from "@reactioncommerce/reaction-components";
@@ -46,6 +47,7 @@ class ProductAdmin extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+
     const nextProduct = nextProps.product || {};
     const currentProduct = this.props.product || {};
 
@@ -244,6 +246,19 @@ class ProductAdmin extends Component {
               placeholder="Select a template"
               value={this.product.template}
             />
+            <Components.Select
+              clearable={false}
+              label="Type"
+              name="isDigital"
+              onChange={this.handleSelectChange}
+              options={this.props.productTypes}
+              placeholder="Select a product type"
+              value={this.product.isDigital}
+            />
+            {
+              this.props.product.isDigital &&
+              <FileDropzone onDrop={files => console.log(files) }/>
+            }
             <Components.TextField
               i18nKeyLabel="productDetailEdit.title"
               i18nKeyPlaceholder="productDetailEdit.title"
@@ -441,6 +456,10 @@ ProductAdmin.propTypes = {
   onProductFieldSave: PropTypes.func,
   onRestoreProduct: PropTypes.func,
   product: PropTypes.object,
+  productTypes: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.any
+  })),
   revisonDocumentIds: PropTypes.arrayOf(PropTypes.string),
   templates: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string,
