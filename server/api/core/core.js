@@ -67,8 +67,8 @@ export default {
     const registeredPackage = this.Packages[packageInfo.name] = packageInfo;
     return registeredPackage;
   },
-  defaultCustomerRoles: [ "guest", "account/profile", "product", "tag", "index", "cart/checkout", "cart/completed"],
-  defaultVisitorRoles: ["anonymous", "guest", "product", "tag", "index", "cart/checkout", "cart/completed"],
+  defaultCustomerRoles: ["guest", "account/profile", "product", "tag", "index", "cart/checkout", "cart/completed", "pages"],
+  defaultVisitorRoles: ["anonymous", "guest", "product", "tag", "index", "cart/checkout", "cart/completed", "pages"],
   createGroups,
   /**
    * canInviteToGroup
@@ -294,11 +294,11 @@ export default {
     const shop = Shops.find({
       domains: domain
     }, {
-      limit: 1,
-      fields: {
-        _id: 1
-      }
-    }).fetch()[0];
+        limit: 1,
+        fields: {
+          _id: 1
+        }
+      }).fetch()[0];
     return shop && shop._id;
   },
 
@@ -313,19 +313,19 @@ export default {
       shop = Shops.findOne({
         _id: shopId
       }, {
-        fields: {
-          name: 1
-        }
-      });
+          fields: {
+            name: 1
+          }
+        });
     } else {
       const domain = this.getDomain();
       shop = Shops.findOne({
         domains: domain
       }, {
-        fields: {
-          name: 1
-        }
-      });
+          fields: {
+            name: 1
+          }
+        });
     }
     if (shop && shop.name) {
       return shop.name;
@@ -346,11 +346,11 @@ export default {
     const shop = Shops.find({
       _id: this.getShopId()
     }, {
-      limit: 1,
-      fields: {
-        emails: 1
-      }
-    }).fetch()[0];
+        limit: 1,
+        fields: {
+          emails: 1
+        }
+      }).fetch()[0];
     return shop && shop.emails && shop.emails[0].address;
   },
 
@@ -373,9 +373,10 @@ export default {
     const { language } = Shops.findOne({
       _id: this.getShopId()
     }, {
-      fields: {
-        language: 1
-      } }
+        fields: {
+          language: 1
+        }
+      }
     );
     return language;
   },
@@ -455,8 +456,8 @@ export default {
     // Unless we have marketplace settings and an enabledPackagesByShopTypes Array
     // we will skip this
     if (marketplaceSettings &&
-        marketplaceSettings.shops &&
-        Array.isArray(marketplaceSettings.shops.enabledPackagesByShopTypes)) {
+      marketplaceSettings.shops &&
+      Array.isArray(marketplaceSettings.shops.enabledPackagesByShopTypes)) {
       // Find the correct packages list for this shopType
       const matchingShopType = marketplaceSettings.shops.enabledPackagesByShopTypes.find(
         EnabledPackagesByShopType => EnabledPackagesByShopType.shopType === shop.shopType);
@@ -626,10 +627,10 @@ export default {
         "_id": accountId,
         "emails.address": options.email
       }, {
-        $set: {
-          "emails.$.verified": true
-        }
-      });
+          $set: {
+            "emails.$.verified": true
+          }
+        });
     } else {
       // send verification email to admin
       sendVerificationEmail(accountId);
@@ -747,8 +748,8 @@ export default {
             if (entry.provides && !Array.isArray(entry.provides)) {
               entry.provides = [entry.provides];
               Logger.warn(`Plugin ${combinedSettings.name} is using a deprecated version of the provides property for` +
-                          ` the ${entry.name || entry.route} registry entry. Since v1.5.0 registry provides accepts` +
-                          " an array of strings.");
+                ` the ${entry.name || entry.route} registry entry. Since v1.5.0 registry provides accepts` +
+                " an array of strings.");
             }
             return entry;
           });
