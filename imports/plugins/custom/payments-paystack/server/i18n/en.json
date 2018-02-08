@@ -1,0 +1,27 @@
+[{
+  "language": "English",
+  "i18n": "en",
+  "ns": "paystack-payment-method",
+  "translation": {
+    "reaction-payments": {
+      "admin": {
+        "shortcut": {
+          "PaystackPaymentProviderLabel": "Paystack Payment",
+          "PaystackPaymentProviderTitle": "Paystack Payment"
+        },
+        "dashboard": {
+          "PaystackPaymentProviderLabel": "Paystack Payment",
+          "PaystackPaymentProviderTitle": "Paystack Payment",
+          "PaystackPaymentProviderDescription": "Paystack Payment Method"
+        },
+        "paymentSettings": {
+          "PaystackPaymentLabel": "Paystack Provider",
+          "PaystackPaymentSettingsLabel": "Paystack Payment",
+          "PaystackCredentials": "This is an Paystack payment method setting.",
+          "apiClientId": "API Client ID",
+          "supportedMethodsLabel": "Payment provider supported methods"
+        }
+      }
+    }
+  }
+}]

@@ -11,8 +11,13 @@ const supportedCollections = ["products", "orders", "accounts"];
 function getProductFindTerm(searchTerm, searchTags, userId) {
   const shopId = Reaction.getShopId();
   const findTerm = {
-    shopId: shopId,
-    $text: { $search: searchTerm }
+    $and: [
+      { shopId },
+      { title: {
+        $regex: searchTerm,
+        $options: "i"
+      } }
+    ]
   };
   if (searchTags.length) {
     findTerm.hashtags = { $all: searchTags };
