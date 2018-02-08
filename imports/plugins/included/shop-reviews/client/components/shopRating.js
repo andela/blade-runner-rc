@@ -9,12 +9,14 @@ class ShopRating extends Component {
     numberOfReviews: PropTypes.number.isRequired
   };
   render() {
+    const reviews = this.props.numberOfReviews;
     return (
       <div className="text-center">
         <h1>
           {this.props.averageRating}
         </h1>
-        <small>Based on {this.props.numberOfReviews} ratings</small>
+        <small>Average product rating</small> <br />
+        <small>Based on {reviews.length} {reviews.length > 1 ? "ratings" : "rating"}</small>
       </div>
     );
   }

@@ -4,6 +4,7 @@ import ReactStars from "react-stars";
 import { Meteor } from "meteor/meteor";
 import { Reaction } from "/client/api";
 import ShopRating from "./shopRating";
+import calculateAverageRating from "./../../../product-detail-simple/client/helpers";
 import { ShopReviews } from "/lib/collections";
 import { Card, CardHeader, CardBody, ReactionAvatar } from "/imports/plugins/core/ui/client/components";
 import { registerComponent, composeWithTracker } from "@reactioncommerce/reaction-components";
@@ -38,29 +39,23 @@ class ShopReview extends React.Component {
   }
   render() {
     const { reviews } = this.props;
-    const sumOfRatings = reviews.map(review => review.rating)
-      .reduce((total, rating) => total + rating, 0);
-    let averageRating = Math.floor((sumOfRatings / reviews.length) * 100) / 100;
-    if (isNaN(averageRating)) {
-      averageRating = 0;
-    }
+    const averageRating = calculateAverageRating(reviews);
 
     const reviewList = reviews.map(review => (
       <div className="media" key={review._id}>
-        <div className="media-left" style={{ paddingRight: "39px" }}>
+        <div className="media-left pr-small">
           <ReactionAvatar
             size={40}
-            style={{ marginTop: 5 }}
-            className={"img-responsive"}
+            className={"img-responsive mt-2"}
             email={review.email}
             name={review.name === "" ? review.email : review.name}
             round
           />
         </div>
         <div className="media-body">
-          <h4 className="media-heading" style={{ marginBottom: "12px" }}>
+          <h4 className="media-heading mb-2">
             <ReactStars edit={false} onChange={rating => { this.setState({ rating }); }} count={5} size={18}
-              value={review.rating}
+              value={review.rating} half={false}
             />
           </h4>
           <p>
@@ -72,41 +67,39 @@ class ShopReview extends React.Component {
     return (
       <div>
         <ShopRating averageRating={averageRating} numberOfReviews={reviews.length} />
-        <div className="col-md-4 col-md-offset-4" style={{ marginTop: "10px" }}>
+        <div className="col-md-4 col-md-offset-4 mt-3">
           <Card>
             <CardHeader i18nKeyTitle={"Shop reviews"} title={"Shop reviews"} />
             <CardBody>
               {
                 this.state.user.emails.length > 0 &&
 
-                <div className="row" style={{ padding: "5px" }}>
+                <div className="row pad">
                   <div className="media">
-                    <div className="media-left" style={{ paddingRight: "39px" }}>
+                    <div className="media-left pr-small">
                       <ReactionAvatar
                         size={40}
-                        style={{ marginTop: 5 }}
-                        className={"img-responsive"}
+                        className={"img-responsive mt-2"}
                         email={this.state.user.emails[0].address}
                         name={this.state.user.name === "" ? this.state.user.emails[0].address : this.state.user.name}
                         round
                       />
                     </div>
                     <div className="media-body">
-                      <h4 className="media-heading" style={{ marginBottom: "12px" }}>
+                      <h4 className="media-heading mb-2">
                         <ReactStars onChange={rating => { this.setState({ rating }); }} count={5} size={18} value={this.state.rating} />
                       </h4>
-                      <textarea style={{ border: "2px solid #5cde86", boxShadow: "none", marginBottom: "4px" }} placeholder="Leave a review ..." cols="2" rows="2"
-                        className="form-control"
+                      <textarea placeholder="Leave a review ..." cols="2" rows="2"
+                        className="form-control text-format"
                         value={this.state.review}
                         name="review"
                         onChange={event => { this.setState({ [event.target.name]: event.target.value }); }}
                       />
                       <div className="add-to-cart">
                         <button
-                          className="btn pull-right"
+                          className="btn pull-right publish-button"
                           onClick={this.createReview}
                           disabled={this.state.review.length < 8}
-                          style={{ backgroundColor: "#5cde86", borderRadius: "0 2px 2px 0", color: "#ffffff" }}
                         >Publish review</button>
                       </div>
                     </div>
@@ -117,7 +110,7 @@ class ShopReview extends React.Component {
                 this.state.user.emails.length < 1 &&
                 <p className="text-center">Please sign in to add a review</p>
               }
-              <div className="review-container" style={{ overflowY: "auto", height: "350px" }}>
+              <div className="review-container review-box">
                 {reviewList}
               </div>
             </CardBody>

@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { ReactionProduct } from "/lib/api";
 import { ProductReviews } from "/lib/collections";
+import calculateAverageRating from "./../helpers";
 import { registerComponent, composeWithTracker } from "@reactioncommerce/reaction-components";
 
 class ProductRating extends Component {
@@ -10,19 +11,14 @@ class ProductRating extends Component {
   };
   render() {
     const { reviews } = this.props;
-    const sumOfRatings = reviews.map(review => review.rating)
-      .reduce((total, rating) => total + rating, 0);
-    let averageRating = Math.floor((sumOfRatings / reviews.length) * 100) / 100;
-    if (isNaN(averageRating)) {
-      averageRating = 0;
-    }
-
+    const averageRating = calculateAverageRating(reviews);
     return (
       <div className="text-center">
         <h1 className="text-center">
           {averageRating}
         </h1>
-        <small>Based on {reviews.length} ratings</small>
+        <small>Average product rating</small> <br />
+        <small>Based on {reviews.length} {reviews.length > 1 ? "ratings" : "rating"}</small>
       </div>
     );
   }
