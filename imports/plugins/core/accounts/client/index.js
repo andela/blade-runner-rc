@@ -29,7 +29,7 @@ export { default as MessagesContainer } from "./containers/messages";
 export { default as UpdatePasswordOverlayContainer } from "./containers/passwordOverlay";
 export { default as LoginInlineContainer } from "./containers/loginInline";
 
-export { default as StaticPages } from "./components/staticPages"
+export { default as StaticPages } from "./components/staticPages";
 
 import "./templates/accounts.html";
 

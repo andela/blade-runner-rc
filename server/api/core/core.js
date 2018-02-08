@@ -294,11 +294,11 @@ export default {
     const shop = Shops.find({
       domains: domain
     }, {
-        limit: 1,
-        fields: {
-          _id: 1
-        }
-      }).fetch()[0];
+      limit: 1,
+      fields: {
+        _id: 1
+      }
+    }).fetch()[0];
     return shop && shop._id;
   },
 
@@ -313,19 +313,19 @@ export default {
       shop = Shops.findOne({
         _id: shopId
       }, {
-          fields: {
-            name: 1
-          }
-        });
+        fields: {
+          name: 1
+        }
+      });
     } else {
       const domain = this.getDomain();
       shop = Shops.findOne({
         domains: domain
       }, {
-          fields: {
-            name: 1
-          }
-        });
+        fields: {
+          name: 1
+        }
+      });
     }
     if (shop && shop.name) {
       return shop.name;
@@ -346,11 +346,11 @@ export default {
     const shop = Shops.find({
       _id: this.getShopId()
     }, {
-        limit: 1,
-        fields: {
-          emails: 1
-        }
-      }).fetch()[0];
+      limit: 1,
+      fields: {
+        emails: 1
+      }
+    }).fetch()[0];
     return shop && shop.emails && shop.emails[0].address;
   },
 
@@ -373,10 +373,10 @@ export default {
     const { language } = Shops.findOne({
       _id: this.getShopId()
     }, {
-        fields: {
-          language: 1
-        }
+      fields: {
+        language: 1
       }
+    }
     );
     return language;
   },
@@ -627,10 +627,10 @@ export default {
         "_id": accountId,
         "emails.address": options.email
       }, {
-          $set: {
-            "emails.$.verified": true
-          }
-        });
+        $set: {
+          "emails.$.verified": true
+        }
+      });
     } else {
       // send verification email to admin
       sendVerificationEmail(accountId);
