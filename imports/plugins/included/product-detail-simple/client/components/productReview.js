@@ -20,7 +20,6 @@ class ProductReview extends React.Component {
     };
   }
   createReview = () => {
-    // eslint-disable-next-line
     const thisComponent = this;
     if (this.state.rating === 0) {
       Alerts.toast("Please add a rating to your review.", "error");
@@ -83,7 +82,9 @@ class ProductReview extends React.Component {
                   </div>
                   <div className="media-body">
                     <h4 className="media-heading mb-2">
-                      <ReactStars onChange={rating => { this.setState({ rating }); }} count={5} size={18} value={this.state.rating} />
+                      <ReactStars onChange={rating => { this.setState({ rating }); }} half={false} count={5} size={18}
+                        value={this.state.rating}
+                      />
                     </h4>
                     <textarea placeholder="Leave a review ..." cols="2" rows="2"
                       className="form-control text-format"

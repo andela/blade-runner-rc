@@ -4,6 +4,7 @@ import ReactStars from "react-stars";
 import { Meteor } from "meteor/meteor";
 import { Reaction } from "/client/api";
 import ShopRating from "./shopRating";
+import calculateAverageRating from "./../../../product-detail-simple/client/helpers";
 import { ShopReviews } from "/lib/collections";
 import { Card, CardHeader, CardBody, ReactionAvatar } from "/imports/plugins/core/ui/client/components";
 import { registerComponent, composeWithTracker } from "@reactioncommerce/reaction-components";
@@ -38,12 +39,7 @@ class ShopReview extends React.Component {
   }
   render() {
     const { reviews } = this.props;
-    const sumOfRatings = reviews.map(review => review.rating)
-      .reduce((total, rating) => total + rating, 0);
-    let averageRating = Math.floor((sumOfRatings / reviews.length) * 100) / 100;
-    if (isNaN(averageRating)) {
-      averageRating = 0;
-    }
+    const averageRating = calculateAverageRating(reviews);
 
     const reviewList = reviews.map(review => (
       <div className="media" key={review._id}>
@@ -59,7 +55,7 @@ class ShopReview extends React.Component {
         <div className="media-body">
           <h4 className="media-heading mb-2">
             <ReactStars edit={false} onChange={rating => { this.setState({ rating }); }} count={5} size={18}
-              value={review.rating}
+              value={review.rating} half={false}
             />
           </h4>
           <p>
