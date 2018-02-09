@@ -21,19 +21,8 @@ Meteor.methods({
    * @return {Void} - or Error object on failure
    */
   "wallet/insertTransaction": function (transaction) {
-    // check(userId, String);
-    // check(shopId, String);
     check(transaction, Object);
-
-    // if (checkUserPermissions()) {
-    //   throw new Meteor.Error(403, "Owners or Admins can't review");
-    // }
-
-    // if (Meteor.user().name) {
     WalletHistories.insert(transaction);
-    // } else {
-    // throw new Meteor.Error(401, "Please update account profile");
-    // }
   },
   /**
    * @name wallet/updateBalance
@@ -62,20 +51,15 @@ Meteor.methods({
       });
     };
 
-    if (to === from) {
-      const wallet = Wallets.findOne({ ownerEmail: from });
+    if (transactionType === "credit") {
+      let wallet;
+      to === from ? wallet = Wallets.findOne({ ownerEmail: to }) : "";
       const currentBalance = wallet.balance;
-      updateBalance(currentBalance, amount, from);
+      updateBalance(currentBalance, amount, to);
     } else {
-      if (transactionType === "credit") {
-        const receiverWallet = Wallets.findOne({ ownerEmail: to });
-        const currentBalance = receiverWallet.balance;
-        updateBalance(currentBalance, amount, to);
-      } else {
-        const senderWallet = Wallets.findOne({ ownerEmail: from });
-        const currentBalance = senderWallet.balance;
-        updateBalance(currentBalance, -amount, from);
-      }
+      const senderWallet = Wallets.findOne({ ownerEmail: from });
+      const currentBalance = senderWallet.balance;
+      updateBalance(currentBalance, -amount, from);
     }
   },
 

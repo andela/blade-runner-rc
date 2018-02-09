@@ -12,7 +12,7 @@ const handlers = {
   fundWallet(amount) {
     return new Promise((resolve, reject) => {
       if (amount <= 0) {
-        return reject(new Error("invalid amount, please try againsss"));
+        return reject(new Error("invalid amount, please try again"));
       }
 
       Meteor.subscribe("Packages", Reaction.getShopId());
