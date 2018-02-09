@@ -10,20 +10,6 @@ import { Reaction } from "/server/api";
  * @namespace Methods/Wallet
 */
 
-/**
- * @method checkUserPermissions
- * @private
- * @summary Perform check to see if user is owner or admin
- * @return {Boolean} - check user permission status
- */
-function checkUserPermissions() {
-  const isOwner = Reaction.hasOwnerAccess();
-  const isAdmin = Reaction.hasAdminAccess();
-  const isGuest = !Reaction.hasPermission("account/profile");
-
-  return (isOwner || isAdmin || isGuest);
-}
-
 Meteor.methods({
   /**
    * @name wallet/insertTransaction
