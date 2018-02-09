@@ -2,7 +2,7 @@ export { default as AccountsDashboard } from "./components/accountsDashboard";
 export { default as AdminInviteForm } from "./components/adminInviteForm";
 export { default as EditGroup } from "./components/editGroup";
 export { default as ForgotPassword } from "./components/forgotPassword";
-export { default as GroupFormss } from "./components/groupForm";
+export { default as GroupForm } from "./components/groupForm";
 export { default as GroupHeader } from "./components/groupHeader";
 export { default as GroupsTable } from "./components/groupsTable";
 export { default as GroupsTableButton } from "./components/groupsTableButton";

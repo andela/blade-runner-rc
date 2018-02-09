@@ -18,13 +18,9 @@ const composer = (props, onData) => {
   }
 
   if (pages.length > 0) {
-    onData(null, {
-      pages
-    });
+    onData(null, { pages });
   } else {
-    onData(null, {
-      pages
-    });
+    onData(null, { pages });
   }
 };
 
