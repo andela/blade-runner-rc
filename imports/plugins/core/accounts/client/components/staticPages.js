@@ -15,32 +15,30 @@ class StaticPagesComponent extends Component {
   renderStaticPagesComponent() {
     const { pages } = this.props;
     return (
-      <div className="accounts">
-        <div className="accounts dropdown" role="menu" data-delay="1000">
-          <div className="dropdown-toggle" data-toggle="dropdown">Page
-            <span className="caret" /></div>
-          <ul className="dropdown-menu">
-            {
-              pages.map((page) => {
-                return (
-                  <li key={page._id}>
-                    <a className="static-dropdown"
-                      onClick={() => this.goToStaticPage(page)}
-                    >{page.pageName}
-                    </a>
-                  </li>
-                );
-              })
-            }
-          </ul>
-        </div>
+      <div className="static-pages dropdown" role="menu" data-delay="1000">
+        <div className="dropdown-toggle" data-toggle="dropdown">Page
+        <span className="caret" /></div>
+        <ul className="dropdown-menu">
+          {
+            pages.map((page) => {
+              return (
+                <li key={page._id}>
+                  <a className="static-dropdown"
+                    onClick={() => this.goToStaticPage(page)}
+                  >{page.pageName}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
       </div>
     );
   }
 
   render() {
     return (
-      <div className="accounts dropdown" role="menu">
+      <div className="static-pages" role="menu">
         {this.renderStaticPagesComponent()}
       </div>
     );
