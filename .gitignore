@@ -42,6 +42,7 @@ private/custom/*
 
 imports/plugins/custom/*
 !imports/plugins/custom/payments-paystack
+!imports/plugins/custom/payments-wallet
 !imports/plugins/custom/.gitkeep
 
 .reaction/config.json
