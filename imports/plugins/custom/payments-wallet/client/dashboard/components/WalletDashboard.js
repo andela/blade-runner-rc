@@ -21,12 +21,7 @@ class WalletDashboard extends Component {
       this.setState({ walletHistory, pagesCount });
     }
   }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.currentPage !== this.state.currentPage) {
-      const { walletHistory, pagesCount } = this.props.fetchWalletHistory(this.state.currentPage);
-      this.setState({ walletHistory, pagesCount });
-    }
-  }
+  
   fetchWalletHistory = (page) => {
     const { currentPage, pagesCount: lastPage } = this.state;
 
@@ -116,6 +111,7 @@ class WalletDashboard extends Component {
 WalletDashboard.propTypes = {
   fetchWalletHistory: PropTypes.func.isRequired,
   fundWallet: PropTypes.func.isRequired,
+  pagesCount: PropTypes.number.isRequired,
   wallet: PropTypes.shape({
     balance: PropTypes.number.isRequired,
     ownerEmail: PropTypes.string.isRequired,
