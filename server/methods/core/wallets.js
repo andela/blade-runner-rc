@@ -1,7 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
 import { Wallets, WalletHistories } from "/lib/collections";
-import { Reaction } from "/server/api";
 
 /**
  * @file Methods for posting and managing shop reviews.
