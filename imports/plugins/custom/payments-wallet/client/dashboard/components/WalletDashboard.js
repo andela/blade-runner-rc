@@ -21,7 +21,7 @@ class WalletDashboard extends Component {
       this.setState({ walletHistory, pagesCount });
     }
   }
-  
+
   fetchWalletHistory = (page) => {
     const { currentPage, pagesCount: lastPage } = this.state;
 
