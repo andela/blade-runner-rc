@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import ReactStars from "react-stars";
 import React, { Component } from "react";
 import { ReactionProduct } from "/lib/api";
 import { ProductReviews } from "/lib/collections";
@@ -17,8 +18,13 @@ class ProductRating extends Component {
         <h1 className="text-center">
           {averageRating}
         </h1>
+        <div className="text-center h6">
+          <ReactStars className="inline-block" edit={false} count={5} size={11}
+            value={averageRating}
+          />
+        </div>
         <small>Average product rating</small> <br />
-        <small>Based on {reviews.length} {reviews.length > 1 ? "ratings" : "rating"}</small>
+        <small>Based on {reviews.length} {reviews.length === 1 ? "rating" : "ratings"}</small>
       </div>
     );
   }

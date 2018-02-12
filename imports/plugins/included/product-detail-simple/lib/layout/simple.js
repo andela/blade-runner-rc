@@ -168,6 +168,9 @@ export default function blocks() {
             }
           }
         },
+        {
+          component: "ProductRating"
+        },
         // Variant List
         {
           component: "VariantListContainer"
@@ -194,9 +197,6 @@ export default function blocks() {
               paddingTop: 20
             }
           }
-        },
-        {
-          component: "ProductRating"
         }
 
       ]

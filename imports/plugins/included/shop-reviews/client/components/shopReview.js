@@ -39,6 +39,7 @@ class ShopReview extends React.Component {
   }
   render() {
     const { reviews } = this.props;
+    const { user, review: stateReview } = this.state;
     const averageRating = calculateAverageRating(reviews);
 
     const reviewList = reviews.map(review => (
@@ -72,7 +73,7 @@ class ShopReview extends React.Component {
             <CardHeader i18nKeyTitle={"Shop reviews"} title={"Shop reviews"} />
             <CardBody>
               {
-                this.state.user.emails.length > 0 &&
+                user.emails.length > 0 &&
 
                 <div className="row pad">
                   <div className="media">
@@ -80,18 +81,18 @@ class ShopReview extends React.Component {
                       <ReactionAvatar
                         size={40}
                         className={"img-responsive mt-2"}
-                        email={this.state.user.emails[0].address}
-                        name={this.state.user.name === "" ? this.state.user.emails[0].address : this.state.user.name}
+                        email={user.emails[0].address}
+                        name={user.name === "" ? user.emails[0].address : user.name}
                         round
                       />
                     </div>
                     <div className="media-body">
                       <h4 className="media-heading mb-2">
-                        <ReactStars onChange={rating => { this.setState({ rating }); }} count={5} size={18} value={this.state.rating} />
+                        <ReactStars half={false} onChange={rating => { this.setState({ rating }); }} count={5} size={18} value={this.state.rating} />
                       </h4>
                       <textarea placeholder="Leave a review ..." cols="2" rows="2"
                         className="form-control text-format"
-                        value={this.state.review}
+                        value={stateReview}
                         name="review"
                         onChange={event => { this.setState({ [event.target.name]: event.target.value }); }}
                       />
@@ -99,7 +100,7 @@ class ShopReview extends React.Component {
                         <button
                           className="btn pull-right publish-button"
                           onClick={this.createReview}
-                          disabled={this.state.review.length < 8}
+                          disabled={stateReview.length < 8}
                         >Publish review</button>
                       </div>
                     </div>
@@ -107,7 +108,7 @@ class ShopReview extends React.Component {
                 </div>
               }
               {
-                this.state.user.emails.length < 1 &&
+                user.emails.length < 1 &&
                 <p className="text-center">Please sign in to add a review</p>
               }
               <div className="review-container review-box">
