@@ -15,9 +15,20 @@ class StaticPagesComponent extends Component {
   renderStaticPagesComponent() {
     const { pages } = this.props;
     return (
-      <div className="static-pages dropdown" role="menu" data-delay="1000">
-        <div className="dropdown-toggle" data-toggle="dropdown">Page
-        <span className="caret" /></div>
+      <div
+        className="static-pages dropdown"
+        role="menu"
+        data-delay="1000"
+      >
+        <div
+          className="dropdown-toggle"
+          data-toggle="dropdown"
+        >
+          Page
+          <span
+            className="caret"
+          />
+        </div>
         <ul className="dropdown-menu">
           {
             pages.map((page) => {
