@@ -75,7 +75,7 @@ function handleChange(event, value) {
         });
       }
     });
-  } else if (value.name !== "account/profile") {
+  } else if (value.name !== "account/profile" && value.name !== "wallet") {
     return Reaction.showActionView(value);
   } else if (value.route || value.name) {
     const route = value.name || value.route;
