@@ -24,7 +24,7 @@
       "checkoutPayment": {
         "addPaymentToCompleteOrder": "Add payment to complete order",
         "processingError": "There was a problem with your payment.",
-        "completeYourOrder": "Complete your order",
+        "completeYourOrder": "Pay with paystack",
         "noPaymentMethods": "No payment methods are configured.",
         "contactAdmin": "Please contact the store administrator.",
         "configureNow": "Configure now.",

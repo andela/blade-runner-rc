@@ -49,6 +49,8 @@ Subscriptions.PrimaryShopPackages = Subscriptions.Manager.subscribe("Packages");
 
 Subscriptions.Tags = Subscriptions.Manager.subscribe("Tags");
 
+Subscriptions.WalletHistories = Subscriptions.Manager.subscribe("WalletHistories");
+
 Subscriptions.Groups = Subscriptions.Manager.subscribe("Groups");
 
 Subscriptions.Media = Subscriptions.Manager.subscribe("Media");
