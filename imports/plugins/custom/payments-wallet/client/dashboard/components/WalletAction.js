@@ -90,8 +90,7 @@ class WalletAction extends Component {
               </label>
 
               {
-                actionType === "transfer"
-                &&
+                actionType === "transfer" &&
                 <label>
                   Wallet Holder Email
                   <input
