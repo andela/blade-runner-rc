@@ -54,7 +54,7 @@ class WalletDashboard extends Component {
   }
 
   render() {
-    const { wallet, fundWallet } = this.props;
+    const { wallet, fundWallet, transferToWallet } = this.props;
     const { walletHistory, currentPage, pagesCount } = this.state;
     return (
       <div className="wallet-dashboard">
@@ -79,6 +79,14 @@ class WalletDashboard extends Component {
                 headerTitle="Fund wallet"
                 buttonText="Fund Wallet"
                 formHandler={fundWallet}
+                wallet={wallet}
+              />
+
+              <WalletAction
+                actionType="transfer"
+                headerTitle="Transfer To Wallet"
+                buttonText="Transfer"
+                formHandler={transferToWallet}
                 wallet={wallet}
               />
 
@@ -112,6 +120,7 @@ WalletDashboard.propTypes = {
   fetchWalletHistory: PropTypes.func.isRequired,
   fundWallet: PropTypes.func.isRequired,
   pagesCount: PropTypes.number.isRequired,
+  transferToWallet: PropTypes.func.isRequired,
   wallet: PropTypes.shape({
     balance: PropTypes.number.isRequired,
     ownerEmail: PropTypes.string.isRequired,

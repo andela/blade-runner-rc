@@ -63,6 +63,56 @@ const handlers = {
     });
   },
 
+  transferToWallet(amount, receiverEmail, senderWallet) {
+    const {
+      _id: senderWalletId,
+      ownerEmail: senderEmail,
+      balance: senderBalance
+    } = senderWallet;
+
+    return new Promise((resolve, reject) => {
+      if (receiverEmail === senderEmail) {
+        return reject(new Error("You can't transfer to yourself"));
+      }
+
+      if (amount <= 0) {
+        return reject(new Error("invalid amount, please try again"));
+      }
+
+      if (amount > senderBalance) {
+        return reject(new Error("You dont have enough for this transfer, please fund your wallet"));
+      }
+
+      Meteor.call("wallet/getUserWalletId", receiverEmail, (getWalletIdError, receiverWalletId) => {
+        if (getWalletIdError) {
+          return reject(getWalletIdError);
+        }
+        const senderTransaction = {
+          amount: parseInt(amount, 10),
+          transactionType: "debit",
+          walletId: senderWalletId,
+          from: senderEmail,
+          to: receiverEmail
+        };
+        const receiverTransaction = {
+          amount: parseInt(amount, 10),
+          transactionType: "credit",
+          walletId: receiverWalletId,
+          from: senderEmail,
+          to: receiverEmail
+        };
+
+        const transactions = [senderTransaction, receiverTransaction];
+        transactions.forEach((transaction) => {
+          Meteor.call("wallet/updateBalance", transaction);
+          Meteor.call("wallet/insertTransaction", transaction);
+        });
+
+        resolve(new Error(`Transfer to ${receiverEmail} successful`));
+      });
+    });
+  },
+
   fetchWalletHistory(page = 1, limit = 5) {
     const offset = (page - 1) * limit;
     const walletHistoryCount = WalletHistories.find({}).count();

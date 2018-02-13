@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import swal from "sweetalert2";
 
 class WalletAction extends Component {
   state = {
@@ -8,12 +9,16 @@ class WalletAction extends Component {
 
   resetInputs = () => {
     this.amountInput.value = "";
+    if (this.props.actionType === "transfer") {
+      this.emailInput.value = "";
+    }
   }
 
   handleFormSubmit = (event) => {
     event.preventDefault();
     const amount = parseInt(this.amountInput.value, 10);
     this.setState({ isLoading: true });
+    let email;
 
     if (this.props.actionType === "fund") {
       this.props.formHandler(amount)
@@ -25,14 +30,33 @@ class WalletAction extends Component {
           this.setState({ isLoading: false });
         })
         .catch((fundWalletError) => {
-          if (fundWalletError.message === "paystack-popup-close") {
-            this.resetInputs();
-
-            this.setState({ isLoading: false });
-
-            return;
-          }
+          this.resetInputs();
+          this.setState({ isLoading: false });
           Alerts.toast(fundWalletError.message, "error");
+        });
+    } else {
+      email = this.emailInput.value;
+      swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this transfer",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, transfer"
+      })
+        .then(() => this.props.formHandler(amount, email, this.props.wallet))
+        .then((transferSuccess) => {
+          Alerts.toast(transferSuccess.message);
+
+          this.resetInputs();
+
+          this.setState({ isLoading: false });
+        })
+        .catch((transferError) => {
+          if (typeof transferError === "object") {
+            Alerts.toast(transferError.message, "error");
+          }
 
           this.resetInputs();
 
@@ -64,6 +88,21 @@ class WalletAction extends Component {
                   required
                 />
               </label>
+
+              {
+                actionType === "transfer" &&
+                <label>
+                  Wallet Holder Email
+                  <input
+                    type="email"
+                    className="form-control"
+                    placeholder="e.g: johndoe@mail.com"
+                    ref={(node) => (this.emailInput = node)}
+                    required
+                  />
+                </label>
+
+              }
 
               <button className="add-cart" type="submit" disabled={this.state.isLoading}>
                 <i

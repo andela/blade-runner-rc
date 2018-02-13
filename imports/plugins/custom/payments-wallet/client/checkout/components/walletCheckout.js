@@ -19,7 +19,7 @@ class WalletCheckout extends Component {
   }
 
   toggleBody = () => {
-    this.setState({ showBody: !this.state.showBody });
+    this.setState(prevState => ({ showBody: !prevState.showBody }));
   }
 
   render() {
