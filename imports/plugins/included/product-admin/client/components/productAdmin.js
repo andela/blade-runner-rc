@@ -147,11 +147,7 @@ class ProductAdmin extends Component {
     }
 
     if (field === "isDigital") {
-      if (value) {
-        this.props.onProductFieldSave(this.product._id, "requiresShipping", false);
-      } else {
-        this.props.onProductFieldSave(this.product._id, "requiresShipping", true);
-      }
+      this.props.onProductFieldSave(this.product._id, "requiresShipping", !value);
     }
   }
 

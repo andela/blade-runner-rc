@@ -60,7 +60,8 @@ class VariantForm extends Component {
       taxable: props.variant.taxable,
       inventoryManagement: props.variant.inventoryManagement,
       isUploading: false,
-      uploadedFile: {}
+      uploadedFile: {},
+      uploadingNewFile: false
     };
   }
 
@@ -165,15 +166,17 @@ class VariantForm extends Component {
             digitalProductSize,
             digitalProductName
           },
-          isUploading: false
+          isUploading: false,
+          uploadingNewFile: false
         }), () => {
-          if (this.props.onVariantFieldSave) {
-            this.props.onVariantFieldSave(this.variant._id, "downloadLink", secureUrl, this.state.variant);
-            this.props.onVariantFieldSave(this.variant._id, "digitalProductName", digitalProductName, this.state.variant);
-            this.props.onVariantFieldSave(this.variant._id, "digitalProductSize", digitalProductSize, this.state.variant);
-            this.props.onVariantFieldSave(this.variant._id, "inventoryManagement", false, this.state.variant);
-            this.props.onVariantFieldSave(this.variant._id, "isSoldOut", false, this.state.variant);
-            this.props.onVariantFieldSave(this.variant._id, "isLowQuantity", false, this.state.variant);
+          const { onVariantFieldSave } = this.props;
+          if (onVariantFieldSave) {
+            onVariantFieldSave(this.variant._id, "downloadLink", secureUrl, this.state.variant);
+            onVariantFieldSave(this.variant._id, "digitalProductName", digitalProductName, this.state.variant);
+            onVariantFieldSave(this.variant._id, "digitalProductSize", digitalProductSize, this.state.variant);
+            onVariantFieldSave(this.variant._id, "inventoryManagement", false, this.state.variant);
+            onVariantFieldSave(this.variant._id, "isSoldOut", false, this.state.variant);
+            onVariantFieldSave(this.variant._id, "isLowQuantity", false, this.state.variant);
             Alerts.toast("File uploaded successfully.", "success");
           }
         });
@@ -549,7 +552,8 @@ class VariantForm extends Component {
             }
             {
               this.props.currentProduct.isDigital &&
-              this.props.variant.digitalProductSize === 0 &&
+              (this.props.variant.digitalProductSize === 0 ||
+              this.state.uploadingNewFile) &&
               <FileDropZone
                 multiple={false}
                 onDrop={this.handleFileDrop}
@@ -557,25 +561,32 @@ class VariantForm extends Component {
               >
                 {
                   !this.state.isUploading &&
-                  <p className="text-center" style={{ paddingTop: "50px" }}>Click Here to Upload File</p>
+                  <p className="text-center padding-top-50">Click Here to Upload File</p>
                 }
                 {
                   this.state.isUploading &&
-                  <p className="text-center" style={{ paddingTop: "50px" }}>
+                  <p className="text-center padding-top-50">
                     <i className="fa fa-spinner fa-spin fa-2x" />
                   </p>
                 }
               </FileDropZone>
             }
             {
+              !this.state.uploadingNewFile &&
               this.props.currentProduct.isDigital &&
               this.props.variant.digitalProductSize > 0 &&
-              <ul className="list-group">
-                <li className="list-group-item">
-                  <span>{this.props.variant.digitalProductName}</span>
-                  {/* <span className="pull-right"><i className="fa fa-trash" onClick={this.handleFileDelete} /></span> */}
-                </li>
-              </ul>
+              <div>
+                <ul className="list-group">
+                  <a href={this.props.variant.downloadLink} target="_blank">
+                    <li className="list-group-item">
+                      <span>{this.props.variant.digitalProductName}</span>
+                    </li>
+                  </a>
+                </ul>
+                <div className="text-center">
+                  <button className="btn btn-xs btn-default" onClick={() => { this.setState({ uploadingNewFile: true }); }}>Upload new file</button>
+                </div>
+              </div>
             }
             {
               !this.props.currentProduct.isDigital &&
