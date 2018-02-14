@@ -41,8 +41,6 @@ class AddToCartButton extends Component {
               scrolling="no" frameBorder="0" allowTransparency="true"
             />
           </div>
-          <div>
-          </div>
         </div>
       );
     }
