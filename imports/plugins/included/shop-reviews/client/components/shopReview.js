@@ -88,7 +88,9 @@ class ShopReview extends React.Component {
                     </div>
                     <div className="media-body">
                       <h4 className="media-heading mb-2">
-                        <ReactStars half={false} onChange={rating => { this.setState({ rating }); }} count={5} size={18} value={this.state.rating} />
+                        <ReactStars half={false} onChange={rating => { this.setState({ rating }); }} count={5} size={18}
+                          value={this.state.rating}
+                        />
                       </h4>
                       <textarea placeholder="Leave a review ..." cols="2" rows="2"
                         className="form-control text-format"
