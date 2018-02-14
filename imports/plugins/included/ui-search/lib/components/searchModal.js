@@ -11,6 +11,7 @@ class SearchModal extends Component {
     handleAccountClick: PropTypes.func,
     handleChange: PropTypes.func,
     handleClick: PropTypes.func,
+    handleSort: PropTypes.func,
     handleTagClick: PropTypes.func,
     handleToggle: PropTypes.func,
     products: PropTypes.array,
@@ -78,8 +79,8 @@ class SearchModal extends Component {
           <div className="col-md-4">
             <label>Categories</label>
             <div>
-              <select id="sortByLatest" className="form-control">
-                <option value="null" selected disabled>
+              <select id="sortByCategory" className="form-control">
+                <option value="null" disabled>
                   Filter by category
                 </option>
                 <option value="newest">Digital product</option>
@@ -90,7 +91,11 @@ class SearchModal extends Component {
           <div className="col-md-4">
             <label>Date</label>
             <div>
-              <select id="sortByLatest" className="form-control">
+              <select
+                id="sortByLatest"
+                className="form-control"
+                onChange={() => this.props.handleSort("sortByLatest")}
+              >
                 <option value="null" selected disabled>
                   Filter by date
                 </option>
@@ -102,12 +107,16 @@ class SearchModal extends Component {
           <div className="col-md-4">
             <label>Price</label>
             <div>
-              <select id="sortByLatest" className="form-control">
+              <select
+                id="sortByPrice"
+                className="form-control"
+                onChange={() => this.props.handleSort("sortByPrice")}
+              >
                 <option value="null" selected disabled>
                   Filter by price
                 </option>
                 <option value="Price: high-low">Price: high-low</option>
-                <option value="Price: high-low">Price: low-high</option>
+                <option value="Price: low-high">Price: low-high</option>
               </select>
             </div>
           </div>

@@ -20,7 +20,8 @@ const wrapComponent = (Comp) => (
         collection: "products",
         value: localStorage.getItem("searchValue") || "",
         renderChild: true,
-        facets: []
+        facets: [],
+        sortKey: {}
       };
     }
 
@@ -74,6 +75,24 @@ const wrapComponent = (Comp) => (
       this.setState({ renderChild: false });
     }
 
+    handleSort = (id) => {
+      const sortValue = document.getElementById(id).value;
+      switch (sortValue) {
+        case "Price: low-high":
+          this.setState(() => ({
+            sortKey: { "price.min": 1 }
+          }));
+          break;
+        case "Price: high-low":
+          this.setState(() => ({
+            sortKey: { "price.max": -1 }
+          }));
+          break;
+        default:
+          sortKey: {}
+      }
+    }
+
     render() {
       return (
         <div>
@@ -87,8 +106,10 @@ const wrapComponent = (Comp) => (
                 handleTagClick={this.handleTagClick}
                 value={this.state.value}
                 unmountMe={this.handleChildUnmount}
+                handleSort={this.handleSort}
                 searchCollection={this.state.collection}
                 facets={this.state.facets}
+                sortKey={this.state.sortKey}
               />
             </div> : null
           }
