@@ -79,12 +79,13 @@ class SearchModal extends Component {
           <div className="col-md-4">
             <label>Categories</label>
             <div>
-              <select id="sortByCategory" className="form-control">
+              <select id="sortByCategory" className="form-control" onChange={() => this.props.handleSort("sortByCategory")}>
                 <option value="null" disabled>
                   Filter by category
                 </option>
-                <option value="newest">Digital product</option>
-                <option value="oldest">Non-digital product</option>
+                <option value="allTypes">All products</option>
+                <option value="digital">Digital product</option>
+                <option value="physical">Non-digital product</option>
               </select>
             </div>
           </div>

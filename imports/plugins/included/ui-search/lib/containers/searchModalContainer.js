@@ -21,7 +21,8 @@ const wrapComponent = (Comp) => (
         value: localStorage.getItem("searchValue") || "",
         renderChild: true,
         facets: [],
-        sortKey: {}
+        sortKey: {},
+        filterKey: null
       };
     }
 
@@ -71,7 +72,7 @@ const wrapComponent = (Comp) => (
       this.setState({ collection });
     }
 
-    handleChildUnmount = () =>  {
+    handleChildUnmount = () => {
       this.setState({ renderChild: false });
     }
 
@@ -88,8 +89,35 @@ const wrapComponent = (Comp) => (
             sortKey: { "price.max": -1 }
           }));
           break;
+        case "newest":
+          this.setState(() => ({
+            sortKey: { createdAt: -1 }
+          }));
+          break;
+        case "oldest":
+          this.setState(() => ({
+            sortKey: { createdAt: 1 }
+          }));
+          break;
+        case "digital":
+          this.setState(() => ({
+            filterKey: "digital"
+          }));
+          break;
+        case "physical":
+          this.setState(() => ({
+            filterKey: "physical"
+          }));
+          break;
+        case "allTypes":
+          this.setState(() => ({
+            filterKey: null
+          }));
+          break;
         default:
-          sortKey: {}
+          this.setState({
+            sortKey: {}
+          });
       }
     }
 
@@ -110,6 +138,7 @@ const wrapComponent = (Comp) => (
                 searchCollection={this.state.collection}
                 facets={this.state.facets}
                 sortKey={this.state.sortKey}
+                filterKey={this.state.filterKey}
               />
             </div> : null
           }
@@ -119,6 +148,6 @@ const wrapComponent = (Comp) => (
   }
 );
 
-registerComponent("SearchSubscription", SearchSubscription, [ wrapComponent ]);
+registerComponent("SearchSubscription", SearchSubscription, [wrapComponent]);
 
 export default compose(wrapComponent)(SearchSubscription);
