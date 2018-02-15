@@ -1,0 +1,21 @@
+<template name="homepage">
+  <main role="main" id="main">
+    {{#if hasAdminAccess}}
+    <div>
+      {{> products}}
+    </div>
+    gt {{else}}
+    <div>
+      {{> homeTemplate}}
+      <div class="product-section">
+        <div class="container-fluid">
+          <div class="row featured">
+            <h1>Featured Products</h1>
+            {{> products}}
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/if}}
+  </main>
+</template>

@@ -32,7 +32,7 @@ class MainDropdown extends Component {
   buttonElement() {
     const { userImage, userName } = this.props;
     return (
-      <Components.Button containerStyle={{ color: "#000", fontWeight: "normal", letterSpacing: 0.8 }}>
+      <Components.Button /* containerStyle={{ color: "#000", fontWeight: "normal", letterSpacing: 0.8 }} */>
         <span>{userImage}</span>
         <span>{userName}</span>&nbsp;
         <Components.Icon
