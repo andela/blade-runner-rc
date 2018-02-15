@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import _ from "lodash";
 import axios from "axios";
+import uploadConfig from "./../uploadConfig";
 import FileDropZone from "react-dropzone";
 import Velocity from "velocity-animate";
 import "velocity-animate/velocity.ui";
@@ -156,10 +157,10 @@ class VariantForm extends Component {
 
     const formData = new FormData();
     formData.append("file", files[0]);
-    formData.append("upload_preset", "blade_runner_rc");
-    formData.append("api_key", "132255634713478");
+    formData.append("upload_preset", uploadConfig.preset);
+    formData.append("api_key", uploadConfig.apiKey);
 
-    return axios.post("https://api.cloudinary.com/v1_1/bahdcoder/auto/upload", formData)
+    return axios.post(uploadConfig.url, formData)
       .then((response) => {
         const secureUrl = response.data.secure_url;
         const digitalProductSize = files[0].size;
