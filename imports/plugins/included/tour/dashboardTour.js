@@ -9,7 +9,7 @@ const dashboardTour = [
     intro: `<h3>Toolbar Controls</h3>
             <hr>
             <p>Over here, you can find links to perform various operations such as checking
-            your orders, setting up tax and analytics</p>`
+            your orders, setting up tax and analytics. Hover over a link to get an appropriate description</p>`
   },
   {
     element: ".right",
