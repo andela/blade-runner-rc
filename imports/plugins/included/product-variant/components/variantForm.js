@@ -49,6 +49,11 @@ const dropZoneStyles = {
   cursor: "pointer"
 };
 
+const uploadNewFileDropZoneStyles = {
+  border: "none",
+  cursor: "pointer"
+};
+
 class VariantForm extends Component {
   constructor(props) {
     super(props);
@@ -183,6 +188,12 @@ class VariantForm extends Component {
       }).catch(() => {
         Alerts.toast("Some error occured uploading your file. Please try again later.", "error");
       });
+  }
+
+  handleUploadNewFileDrop = files => {
+    this.setState({ uploadingNewFile: true });
+
+    this.handleFileDrop(files);
   }
 
   handleFileDelete = () => {
@@ -584,7 +595,15 @@ class VariantForm extends Component {
                   </a>
                 </ul>
                 <div className="text-center">
-                  <button className="btn btn-xs btn-default" onClick={() => { this.setState({ uploadingNewFile: true }); }}>Upload new file</button>
+                  <button className="btn btn-xs btn-default">
+                    <FileDropZone
+                      multiple={false}
+                      onDrop={this.handleUploadNewFileDrop}
+                      style={uploadNewFileDropZoneStyles}
+                    >
+                      Replace file
+                    </FileDropZone>
+                  </button>
                 </div>
               </div>
             }
