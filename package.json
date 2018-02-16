@@ -6,6 +6,10 @@
   "directories": {
     "test": "tests"
   },
+  "engines": {
+    "node": "8.9.1",
+    "npm": "5.5.1"
+  },
   "homepage": "https://github.com/reactioncommerce/reaction",
   "url": "https://github.com/reactioncommerce/reaction",
   "email": "reaction@reactioncommerce.com",
