@@ -31,12 +31,6 @@ const landingPageTour = [
             <p>Select your preferred language here</p>`
   },
   {
-    element: ".tour",
-    intro: `<h3>Take Tour</h3>
-            <hr />
-            <p>Click this button to take this tour again</p>`
-  },
-  {
     element: ".search",
     intro: `<h3>Search</h3>
             <hr />
@@ -47,6 +41,12 @@ const landingPageTour = [
     intro: `<h3>Products</h3>
             <hr />
             <p>Browse through our gallery of products and select one to purchase and add to your cart</p>`
+  },
+  {
+    element: ".tour",
+    intro: `<h3>Take Tour</h3>
+            <hr />
+            <p>Click this button to take this tour again</p>`
   }
 ];
 
