@@ -31,7 +31,7 @@ class ProductGrid extends Component {
 
   render() {
     return (
-      <div className="container-main">
+      <div className="container">
         <div className="product-grid">
           <Components.DragDropProvider>
             <ul className="product-grid-list list-unstyled" id="product-grid-list">
