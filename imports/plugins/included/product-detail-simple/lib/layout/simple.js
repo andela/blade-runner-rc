@@ -78,6 +78,12 @@ export default function blocks() {
         // Metadata
         {
           component: "ProductMetadata"
+        },
+        {
+          component: "RateShopButton"
+        },
+        {
+          component: "ProductReview"
         }
       ]
     },
@@ -162,7 +168,9 @@ export default function blocks() {
             }
           }
         },
-
+        {
+          component: "ProductRating"
+        },
         // Variant List
         {
           component: "VariantListContainer"

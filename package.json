@@ -6,6 +6,10 @@
   "directories": {
     "test": "tests"
   },
+  "engines": {
+    "node": "8.9.1",
+    "npm": "5.5.1"
+  },
   "homepage": "https://github.com/reactioncommerce/reaction",
   "url": "https://github.com/reactioncommerce/reaction",
   "email": "reaction@reactioncommerce.com",
@@ -49,6 +53,7 @@
     "fibers": "^2.0.0",
     "flatten-obj": "^3.1.0",
     "font-awesome": "^4.7.0",
+    "griddle-react": "^1.0.0",
     "handlebars": "^4.0.10",
     "history": "^4.6.3",
     "hoist-non-react-statics": "^2.2.0",
@@ -57,6 +62,7 @@
     "i18next-localstorage-cache": "^1.1.1",
     "i18next-sprintf-postprocessor": "^0.2.2",
     "immutable": "^3.8.1",
+    "intro.js": "^2.8.0-alpha.1",
     "jquery-i18next": "^1.2.0",
     "later": "^1.2.0",
     "lodash": "^4.17.4",
@@ -99,6 +105,7 @@
     "react-router": "^4.1.2",
     "react-router-dom": "^4.1.2",
     "react-select": "^1.0.0-rc.5",
+    "react-stars": "^2.2.5",
     "react-table": "^6.5.1",
     "react-taco-table": "^0.5.1",
     "react-tether": "^0.5.7",
