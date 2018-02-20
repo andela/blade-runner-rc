@@ -5,6 +5,7 @@ import { Components } from "@reactioncommerce/reaction-components";
 class GridItemNotice extends Component {
   static propTypes = {
     isBackorder: PropTypes.func,
+    isDigital: PropTypes.bool,
     isLowQuantity: PropTypes.func,
     isSoldOut: PropTypes.func
   }
@@ -34,7 +35,7 @@ class GridItemNotice extends Component {
   render() {
     return (
       <div className="product-grid-badges">
-        {this.renderNotice()}
+        {!this.props.isDigital && this.renderNotice()}
       </div>
     );
   }
