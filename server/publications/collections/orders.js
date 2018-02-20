@@ -111,8 +111,11 @@ Meteor.publish("PaginatedOrders", function (limit) {
   const aggregate = createAggregate(shopId, { createdAt: -1 }, limit);
 
   if (Roles.userIsInRole(this.userId, ["admin", "owner", "orders"], shopId)) {
-    ReactiveAggregate(this, Orders, aggregate, aggregateOptions);
+    console.log('===============', Orders.find({}).fetch());
+    return Orders.find({});
+    // ReactiveAggregate(this, Orders, aggregate, aggregateOptions);
   } else {
+    console.log('>>>>>>>>>>>----------', limit, this.userId, shopId);
     return Orders.find({
       shopId: shopId,
       userId: this.userId
