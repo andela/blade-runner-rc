@@ -1,14 +1,8 @@
 import React, { Component } from "react";
-import { Router } from "/client/api";
 import PropTypes from "prop-types";
 import { Components, registerComponent } from "@reactioncommerce/reaction-components";
 
 class AddToCartButton extends Component {
-  constructor(props) {
-    super(props);
-    this.route = `http:https://blade-runner-rc-staging${Router.current().route.path}`;
-    console.log('++++++++', this.route);
-  }
   get hasVariants() {
     return Array.isArray(this.props.variants) && this.props.variants.length > 0;
   }
