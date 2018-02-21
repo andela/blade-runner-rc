@@ -14,18 +14,32 @@ class ProductRating extends Component {
     const { reviews } = this.props;
     const averageRating = calculateAverageRating(reviews);
     return (
-      <div className="text-center">
-        <h1 className="text-center">
-          {averageRating}
-        </h1>
-        <div className="text-center h6">
-          <ReactStars className="inline-block" edit={false} count={5} size={11}
-            value={averageRating}
-          />
+      <div className="row">
+        <div className="col-md-12">
+          <div>
+            <small>Average product rating:</small>
+            <span>
+              <ReactStars className="inline-block" edit={false} count={5} size={15}
+                value={averageRating}
+              />
+            </span>
+            ({reviews.length})
+            <hr/>
+          </div>
         </div>
-        <small>Average product rating</small> <br />
-        <small>Based on {reviews.length} {reviews.length === 1 ? "rating" : "ratings"}</small>
       </div>
+      // <div className="text-center">
+      //   {/* <h1 className="text-center">
+      //     {averageRating}
+      //   </h1> */}
+      //   {/* <div className="text-center h6">
+      //     <ReactStars className="inline-block" edit={false} count={5} size={11}
+      //       value={averageRating}
+      //     />
+      //   </div> */}
+      //   <small>Average product rating</small> <br />
+      //   <small>Based on {reviews.length} {reviews.length === 1 ? "rating" : "ratings"}</small>
+      // </div>
     );
   }
 }
