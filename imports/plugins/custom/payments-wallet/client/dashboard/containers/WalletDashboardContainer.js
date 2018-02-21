@@ -8,6 +8,7 @@ import { Paystack } from "../../../../../custom/payments-paystack/lib/api";
 import roundToTwo from "../../helpers/roundToTwo";
 
 import WalletDashboard from "../components/WalletDashboard";
+const emailRegex = /\.{1}/;
 
 const handlers = {
   fundWallet(amount) {
@@ -17,15 +18,16 @@ const handlers = {
       }
 
       Meteor.subscribe("Packages", Reaction.getShopId());
-      let email = Accounts.findOne({ _id: Meteor.userId() }).emails[0].address;
+      const email = Accounts.findOne({ _id: Meteor.userId() }).emails[0].address;
+      let emailForPaystack = email;
 
-      email === "admin@localhost" ? email = "admin@localhost.com" : "";
+      !emailRegex.test(email) ? emailForPaystack += ".com" : "";
 
       Meteor.call("paystack/loadApiKeys", (getPublicKeyError, { publicKey, secretKey }) => {
         if (!getPublicKeyError) {
           const payload = {
             key: publicKey,
-            email,
+            email: emailForPaystack,
             amount: (amount * 100),
             currency: "NGN",
             callback: function (response) {
@@ -34,7 +36,6 @@ const handlers = {
                 if (paystackVerifyError) {
                   reject(paystackVerifyError);
                 } else {
-                  email === "admin@localhost.com" ? email = "admin@localhost" : "";
                   Meteor.call("wallet/getUserWalletId", email, (getWalletIdError, walletId) => {
                     const transaction = {
                       amount: (res.data.amount / 100),
