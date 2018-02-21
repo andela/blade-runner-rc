@@ -1,0 +1,81 @@
+.wallet-dashboard-action{
+  .wallet-dashboard-action__form{
+    display: flex;
+    flex-direction: column;
+    button{
+      background-color: #1999dd;
+      font-size: 1.5rem;
+      padding: .5rem 0;
+      color: #fff;
+    }
+  }
+}
+
+.wallet-dashboard-history{
+  .transaction{
+    &:first-of-type{
+      td{
+        border-top: 0;
+      }
+    }
+    .transaction__info{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.pagination{
+  text-align: center;
+  width: 100%;
+
+  .pagination-links{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+
+    .pagination-link{
+
+      button{
+        padding: .5rem 1.2rem;
+        border-radius: 5px;
+        outline: none;
+        color: #fff;
+        background-color: @rui-brand-dark;
+        margin-right: 1.2rem;
+
+        &:disabled {
+          background-color: @rui-brand-dark-disabled;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+.wallet-dashboard{
+  .wallet-dashboard-intro{
+    display: flex;
+    justify-content: center;
+
+    @media (min-width: @screen-sm) {
+      flex-direction: row;
+      justify-content: space-between;
+
+      .wallet-dashboard-balance{
+        width: 49%;
+      }
+
+      .wallet-dashboard-action{
+        width: 49%;
+      }
+    }
+  }
+
+  .wallet-dashboard-balance{
+    .panel-body{
+      text-align: center;
+    }
+  }
+}

@@ -13,6 +13,7 @@
     "FS": true, // gridFS,
     "Alerts": true,  // this needs to get cleaned up, but ignoring for now
     "jest": true,
+    "PaystackPop": true,
     "expect": true,
     "test": true
   },

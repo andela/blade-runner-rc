@@ -1,0 +1,28 @@
+<template name="paystackPaymentForm">
+  {{#autoForm schema=PaystackPayment id="paystack-payment-form"}}
+  <div class="row">
+    <div class="form-group{{#if afFieldIsInvalid name='name'}} has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='name'}}</label>
+        {{>afFieldInput name="name" value=name}}
+        {{#if afFieldIsInvalid name="name"}}
+        <span class="help-block">{{afFieldMessage name="name"}}</span>
+        {{/if}}
+    </div>
+
+    <div class="form-group{{#if afFieldIsInvalid name='email'}} has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='email'}}</label>
+        {{>afFieldInput name="email" placeholder='please enter your email'}}
+        {{#if afFieldIsInvalid name="email"}}
+        <span class="help-block">{{afFieldMessage name="email"}}</span>
+        {{/if}}
+    </div>
+  </div>
+
+  <div class="alert alert-danger hidden">Oh! Snap!</div>
+  <button type="submit" class="rui btn btn-lg btn-cta btn-block btn-complete-order">
+    <span id="btn-complete-order" data-i18n="checkoutPayment.completeYourOrder">Complete your order</span>
+    <i class="fa fa-spinner fa-spin hidden" id="btn-processing"></i>
+  </button>
+
+  {{/autoForm}}
+</template>
