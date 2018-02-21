@@ -5,6 +5,7 @@ import { Reaction } from "/client/api";
 import { Accounts, Wallets, WalletHistories } from "/lib/collections";
 
 import { Paystack } from "../../../../../custom/payments-paystack/lib/api";
+import roundToTwo from "../../helpers/roundToTwo";
 
 import WalletDashboard from "../components/WalletDashboard";
 
@@ -16,7 +17,9 @@ const handlers = {
       }
 
       Meteor.subscribe("Packages", Reaction.getShopId());
-      const email = Accounts.findOne({ _id: Meteor.userId() }).emails[0].address;
+      let email = Accounts.findOne({ _id: Meteor.userId() }).emails[0].address;
+
+      email === "admin@localhost" ? email = "admin@localhost.com" : "";
 
       Meteor.call("paystack/loadApiKeys", (getPublicKeyError, { publicKey, secretKey }) => {
         if (!getPublicKeyError) {
@@ -31,6 +34,7 @@ const handlers = {
                 if (paystackVerifyError) {
                   reject(paystackVerifyError);
                 } else {
+                  email === "admin@localhost.com" ? email = "admin@localhost" : "";
                   Meteor.call("wallet/getUserWalletId", email, (getWalletIdError, walletId) => {
                     const transaction = {
                       amount: (res.data.amount / 100),
@@ -44,7 +48,6 @@ const handlers = {
                       message: "Wallet funded successfully",
                       type: "success"
                     });
-
                     Meteor.call("wallet/insertTransaction", transaction);
                     Meteor.call("wallet/updateBalance", transaction);
                   });
@@ -79,7 +82,7 @@ const handlers = {
         return reject(new Error("invalid amount, please try again"));
       }
 
-      if (amount > senderBalance) {
+      if (amount >  roundToTwo(senderBalance)) {
         return reject(new Error("You dont have enough for this transfer, please fund your wallet"));
       }
 
@@ -101,7 +104,6 @@ const handlers = {
           from: senderEmail,
           to: receiverEmail
         };
-
         const transactions = [senderTransaction, receiverTransaction];
         transactions.forEach((transaction) => {
           Meteor.call("wallet/updateBalance", transaction);
