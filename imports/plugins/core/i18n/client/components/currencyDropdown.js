@@ -31,7 +31,6 @@ class Currency extends Component {
     return (
       <Components.Button
         label={this.props.currentCurrency || this.state.value}
-        containerStyle={{ color: "#000", fontWeight: "normal", letterSpacing: 0.8 }}
       >
         &nbsp;<i className="fa fa-caret-down" />
       </Components.Button>
