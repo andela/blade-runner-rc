@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
-import ReactStars from "react-stars";
 import React, { Component } from "react";
 import { ReactionProduct } from "/lib/api";
+import { cannotReview } from "./productReview";
+import Scroll from "react-scroll-to-element";
 import { ProductReviews } from "/lib/collections";
 import calculateAverageRating from "./../helpers";
+import StarRatingComponent from "react-star-rating-component";
 import { registerComponent, composeWithTracker } from "@reactioncommerce/reaction-components";
 
 class ProductRating extends Component {
@@ -16,30 +18,29 @@ class ProductRating extends Component {
     return (
       <div className="row">
         <div className="col-md-12">
-          <div>
-            <small>Average product rating:</small>
-            <span>
-              <ReactStars className="inline-block" edit={false} count={5} size={15}
+          <div className="product-rating-details">
+            <div className="react-stars-rating">
+              <StarRatingComponent
+                name="productRating"
+                starCount={5}
                 value={averageRating}
+                editing={false}
               />
-            </span>
-            ({reviews.length})
-            <hr/>
+            </div>
+            <div className="react-rating-count">
+              ({reviews.length})
+              <Scroll type="id" element="productReviews">
+                {
+                  !cannotReview() &&
+                  <button className="btn btn-xs btn-default btn-write-review">
+                    Write a review
+                  </button>
+                }
+              </Scroll>
+            </div>
           </div>
         </div>
       </div>
-      // <div className="text-center">
-      //   {/* <h1 className="text-center">
-      //     {averageRating}
-      //   </h1> */}
-      //   {/* <div className="text-center h6">
-      //     <ReactStars className="inline-block" edit={false} count={5} size={11}
-      //       value={averageRating}
-      //     />
-      //   </div> */}
-      //   <small>Average product rating</small> <br />
-      //   <small>Based on {reviews.length} {reviews.length === 1 ? "rating" : "ratings"}</small>
-      // </div>
     );
   }
 }
