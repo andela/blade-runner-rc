@@ -25,6 +25,7 @@ class ProductRating extends Component {
                 starCount={5}
                 value={averageRating}
                 editing={false}
+                emptyStarColor="#EEE"
               />
             </div>
             <div className="react-rating-count">
