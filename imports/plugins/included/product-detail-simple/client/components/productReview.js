@@ -1,11 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReactStars from "react-stars";
+import { Reaction } from "/client/api";
 import { Meteor } from "meteor/meteor";
 import { ReactionProduct } from "/lib/api";
 import { ProductReviews } from "/lib/collections";
 import { Card, CardHeader, CardBody, ReactionAvatar } from "/imports/plugins/core/ui/client/components";
 import { registerComponent, composeWithTracker } from "@reactioncommerce/reaction-components";
+
+export function cannotReview() {
+  return (Reaction.hasOwnerAccess() || Reaction.hasAdminAccess() || !Reaction.hasPermission("account/profile"));
+}
 
 class ProductReview extends React.Component {
   static propTypes = {
@@ -63,13 +68,12 @@ class ProductReview extends React.Component {
       </div>
     ));
     return (
-      <div className="mt-3">
+      <div className="mt-3" id="productReviews">
         <Card>
           <CardHeader i18nKeyTitle={"Product reviews"} title={"Product reviews"} />
           <CardBody>
             {
-              user.emails.length > 0 &&
-
+              !cannotReview() &&
               <div className="row pad">
                 <div className="media">
                   <div className="media-left pr-small">
@@ -105,8 +109,14 @@ class ProductReview extends React.Component {
               </div>
             }
             {
+              cannotReview() &&
               user.emails.length < 1 &&
               <p className="text-center">Please sign in to add a review</p>
+            }
+            {
+              cannotReview() &&
+              user.emails.length >= 1 &&
+              <p className="text-center">Administrators and owners can't review products.</p>
             }
             <div className="review-container review-box">
               {reviewList}
