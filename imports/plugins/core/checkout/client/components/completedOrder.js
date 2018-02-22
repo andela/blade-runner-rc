@@ -4,6 +4,7 @@ import { Components } from "@reactioncommerce/reaction-components";
 import CompletedShopOrders from "./completedShopOrders";
 import CompletedOrderPaymentMethod from "./completedOrderPaymentMethods";
 import CompletedOrderSummary from "./completedOrderSummary";
+import CancelOrderButton from "./cancelOrderButton";
 import AddEmail from "./addEmail";
 
 /**
@@ -19,6 +20,7 @@ import AddEmail from "./addEmail";
  * @return {Node} React node containing the top-level component for displaying the completed order/receipt page
  */
 const CompletedOrder = ({ order, orderId, shops, orderSummary, paymentMethods, handleDisplayMedia, isProfilePage }) => {
+  const orderStatus = order.workflow.status;
   if (!order) {
     return (
       <Components.NotFound
@@ -48,7 +50,17 @@ const CompletedOrder = ({ order, orderId, shops, orderSummary, paymentMethods, h
 
   return (
     <div className="container order-completed">
-      { headerText }
+      <div style={{ display: "flex", width: "100%" }}>
+        { headerText }
+        {(orderStatus === "new" || orderStatus === "coreOrderWorkflow/canceled") &&
+        <div style={{ marginLeft: "auto" }}>
+          <CancelOrderButton
+            order={order}
+            orderStatus={orderStatus}
+          />
+        </div>
+        }
+      </div>
       <div className="order-details-main">
         <div className="order-details-content-title">
           <p><Components.Translation defaultValue="Your Items" i18nKey={"cartCompleted.yourItems"} /></p>

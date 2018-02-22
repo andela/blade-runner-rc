@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
-import { Wallets, WalletHistories } from "/lib/collections";
+import { Wallets, WalletHistories, Orders } from "/lib/collections";
 
 /**
  * @file Methods for posting and managing shop reviews.
@@ -23,6 +23,32 @@ Meteor.methods({
   "wallet/insertTransaction": function (transaction) {
     check(transaction, Object);
     WalletHistories.insert(transaction);
+  },
+
+  "wallet/cancelOrder": function (order) {
+    check(order, Object);
+    const { email } = order;
+    if (email) {
+      const amount = order.billing[0].invoice.total;
+
+      const wallet = Wallets.findOne({ ownerEmail: email });
+
+      if (!wallet) {
+        Wallets.insert({});
+      }
+
+      Meteor.call("wallet/getUserWalletId", email, (getWalletIdError, walletId) => {
+        const transaction = {
+          walletId,
+          amount: Number(amount),
+          to: email,
+          from: "reaction@payments.com",
+          transactionType: "credit"
+        };
+        Meteor.call("wallet/updateBalance", transaction);
+        Meteor.call();
+      });
+    }
   },
   /**
    * @name wallet/updateBalance

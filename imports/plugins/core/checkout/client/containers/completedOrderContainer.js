@@ -50,6 +50,7 @@ function composer(props, onData) {
     });
 
     if (order) {
+      console.log("Order", order);
       const imageSub = Meteor.subscribe("CartImages", order.items);
 
       const orderSummary = {
