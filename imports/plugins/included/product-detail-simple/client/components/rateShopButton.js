@@ -29,7 +29,11 @@ class RateShopButton extends Component {
               {averageRating}
             </h1>
             <div className="text-center h6">
-              <ReactStars className="inline-block" edit={false} count={5} size={11}
+              <ReactStars
+                className="inline-block"
+                edit={false}
+                count={5}
+                size={11}
                 value={averageRating}
               />
             </div>
