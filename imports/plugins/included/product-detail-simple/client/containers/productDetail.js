@@ -126,7 +126,7 @@ const wrapComponent = (Comp) => (
           productId = currentProduct._id;
 
           if (productId) {
-            Meteor.call("cart/addToCart", productId, currentVariant._id, quantity, (error) => {
+            Meteor.call("cart/addToCart", productId, currentVariant._id, quantity, { isDigital: currentProduct.isDigital || false }, (error) => {
               if (error) {
                 Logger.error(error, "Failed to add to cart.");
                 return error;

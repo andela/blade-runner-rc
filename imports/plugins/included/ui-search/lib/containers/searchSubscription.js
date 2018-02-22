@@ -42,13 +42,24 @@ function composer(props, onData) {
     let productResults = [];
     let tagSearchResults = [];
     let accountResults = [];
+    let filterByType = {};
+    let filters = {};
+
+    if (props.filterKey) {
+      filterByType = {
+        isDigital: props.filterKey === "digital"
+      };
+
+      filters = { $and: [filterByType] };
+    } else {
+      filters = {};
+    }
 
     /*
     * Product Search
     */
     if (props.searchCollection === "products") {
-      productResults = Collections.ProductSearch.find().fetch();
-
+      productResults = Collections.ProductSearch.find(filters, { sort: props.sortKey }).fetch();
       const productHashtags = getProductHashtags(productResults);
       tagSearchResults = Collections.Tags.find({
         _id: { $in: productHashtags }

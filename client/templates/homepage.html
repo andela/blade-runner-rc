@@ -1,0 +1,39 @@
+<template name="homepage">
+  <main role="main" id="main">
+    {{#if hasAdminAccess}}
+    <div>
+      {{> products}}
+    </div>
+    {{else}}
+    <div>
+      {{> homeTemplate}}
+      <div class="product-section">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="heading">
+              <h3> FEATURED PRODUCTS </h3>
+            </div>
+            {{> products}}
+          </div>
+          <div class="digital-section">
+            <div class="container">
+              <div class="row margin">
+                <div class="heading">
+                  <h3> DIGITAL PRODUCTS </h3>
+                </div>
+                {{> digitalProducts}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="category-section">
+        {{> category}}
+      </div>
+      <div class="footer-section">
+        {{> footer}}
+      </div>
+    </div>
+    {{/if}}
+  </main>
+</template>

@@ -1,0 +1,83 @@
+<template name="staticPages">
+  <div class='container'>
+    <div class='row'>
+      <div class='col-lg-12 col-xs-12'>
+        <h1>Manage Pages</h1>
+        {{> staticPagesPanel}}
+      </div>
+      <div class='col-lg-12 col-xs-12'>
+        <h1>Create Pages</h1>
+        {{> staticPagesForm}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="staticPagesPanel">
+  <div class="static-page-panel panel panel-info">
+    <div class="panel-body">
+      {{#if staticPages.count}}
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Page Name</th>
+              <th>Page Address</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each page in staticPages}}
+            <tr id={{page._id}}>
+              <td>{{page.pageName}}</td>
+              <td>{{page.pageAddress}}</td>
+              <td>
+                <div class='btn-group'>
+                  <button type="button" class="btn btn-info editPage">Edit
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger deletePage">Delete
+                    <i class="fa fa-trash"></i>
+                  </button>
+                  <a href="/pages/{{page.pageAddress}}" type="button" class="btn btn-default">Preview
+                    <i class="fa fa-eye"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      {{else}}
+      <div class='alert alert-info text-center'>
+        <h4>Oops! No pages have been added.</h4>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<template name="staticPagesForm">
+  <form class="static-page">
+    <div class="form-group label-info">
+      <label for="sp-name">Page Title:</label>
+      <input type="text" name="name" id="sp-name" placeholder="Enter page name.. (e.g. Contact)" class="form-control" required="required">
+    </div>
+    <div class="form-group label-info">
+      <label for="sp-url">Page URL Address:</label>
+      <input type="text" name="url" id="sp-url" placeholder="Enter page address.. (e.g. 'contact')" class="form-control" required="required">
+      <input class="edit-page-data" type='hidden'>
+    </div>
+    <div class="form-group label-info">
+      <label for="sp-content">Create your page below:</label>
+      <textarea name="content" id="sp-content" class="form-control spform"></textarea>
+    </div>
+    <div class="checkbox form-group label-info">
+      <label>
+        <input type="checkbox" name="showOnNavbar" id="sp-show">Show page on navbar?
+      </label>
+    </div>
+    <button type="submit" class="form-group save-static-page btn btn-default">Create Page</button>
+  </form>
+</template>
