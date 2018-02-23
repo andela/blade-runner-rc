@@ -92,14 +92,14 @@ const handlers = {
           return reject(getWalletIdError);
         }
         const senderTransaction = {
-          amount: parseInt(amount, 10),
+          amount: Number(amount),
           transactionType: "debit",
           walletId: senderWalletId,
           from: senderEmail,
           to: receiverEmail
         };
         const receiverTransaction = {
-          amount: parseInt(amount, 10),
+          amount: Number(amount),
           transactionType: "credit",
           walletId: receiverWalletId,
           from: senderEmail,
