@@ -33,6 +33,27 @@ handlers.handleDisplayMedia = (item) => {
   return false;
 };
 
+handlers.onCancelOrderClick = (order) => {
+  Alerts.alert({
+    title: "Cancel Order",
+    type: "question",
+    text: "Are you sure you want to cancel this order?",
+    showCancelButton: true
+  }, (isConfirm) => {
+    if (isConfirm) {
+      Meteor.call("wallet/cancelOrder", order, (err, res) => {
+        if (res === 2) {
+          Alerts.toast("Sorry, guest cannot cancel order", "error");
+        } else if (res === 1) {
+          Alerts.toast("Order successfully cancelled. Your wallet has  been refunded", "success");
+        } else {
+          Alerts.toast("An error occured, please try again", "error");
+        }
+      });
+    }
+  });
+};
+
 function composer(props, onData) {
   // The Cart subscription does not update when you delete the original record
   // but don't change parameters so we need to re-init that subscription here.
@@ -50,7 +71,6 @@ function composer(props, onData) {
     });
 
     if (order) {
-      console.log("Order", order);
       const imageSub = Meteor.subscribe("CartImages", order.items);
 
       const orderSummary = {

@@ -1,6 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
 import { Wallets, WalletHistories, Orders } from "/lib/collections";
+import { Logger, Reaction } from "/server/api";
 
 /**
  * @file Methods for posting and managing shop reviews.
@@ -46,9 +47,34 @@ Meteor.methods({
           transactionType: "credit"
         };
         Meteor.call("wallet/updateBalance", transaction);
-        Meteor.call();
+        Meteor.call("wallet/insertTransaction", transaction);
       });
+
+      // Send notification to users
+      const prefix = Reaction.getShopPrefix();
+      const url = `${prefix}/notification`;
+      const sms = true;
+
+      Meteor.call("notification/send", order.userId, "orderCanceled", url, sms, (err) => {
+        if (err) Logger.error(err);
+      });
+
+      // update item workflow
+      // Meteor.call("workflow/pushItemWorkflow", "coreOrderItemWorkflow/canceled", order, itemIds);
+      Orders.update({
+        "_id": order._id,
+        "billing.shopId": Reaction.getShopId
+      }, {
+        $set: {
+          "workflow.status": "coreOrderWorkflow/canceled"
+        },
+        $push: {
+          "workflow.workflow": "coreOrderWorkflow/canceled"
+        }
+      });
+      return 1;
     }
+    return 2;
   },
   /**
    * @name wallet/updateBalance
