@@ -20,7 +20,9 @@ const wrapComponent = (Comp) => (
         collection: "products",
         value: localStorage.getItem("searchValue") || "",
         renderChild: true,
-        facets: []
+        facets: [],
+        sortKey: {},
+        filterKey: null
       };
     }
 
@@ -70,8 +72,53 @@ const wrapComponent = (Comp) => (
       this.setState({ collection });
     }
 
-    handleChildUnmount = () =>  {
+    handleChildUnmount = () => {
       this.setState({ renderChild: false });
+    }
+
+    handleSort = (id) => {
+      const sortValue = document.getElementById(id).value;
+      switch (sortValue) {
+        case "Price: low-high":
+          this.setState(() => ({
+            sortKey: { "price.min": 1 }
+          }));
+          break;
+        case "Price: high-low":
+          this.setState(() => ({
+            sortKey: { "price.max": -1 }
+          }));
+          break;
+        case "newest":
+          this.setState(() => ({
+            sortKey: { createdAt: -1 }
+          }));
+          break;
+        case "oldest":
+          this.setState(() => ({
+            sortKey: { createdAt: 1 }
+          }));
+          break;
+        case "digital":
+          this.setState(() => ({
+            filterKey: "digital"
+          }));
+          break;
+        case "physical":
+          this.setState(() => ({
+            filterKey: "physical"
+          }));
+          break;
+        case "allTypes":
+          this.setState(() => ({
+            filterKey: null
+          }));
+          break;
+        default:
+          this.setState({
+            sortKey: {}
+          });
+      }
     }
 
     render() {
@@ -87,8 +134,11 @@ const wrapComponent = (Comp) => (
                 handleTagClick={this.handleTagClick}
                 value={this.state.value}
                 unmountMe={this.handleChildUnmount}
+                handleSort={this.handleSort}
                 searchCollection={this.state.collection}
                 facets={this.state.facets}
+                sortKey={this.state.sortKey}
+                filterKey={this.state.filterKey}
               />
             </div> : null
           }
@@ -98,6 +148,6 @@ const wrapComponent = (Comp) => (
   }
 );
 
-registerComponent("SearchSubscription", SearchSubscription, [ wrapComponent ]);
+registerComponent("SearchSubscription", SearchSubscription, [wrapComponent]);
 
 export default compose(wrapComponent)(SearchSubscription);

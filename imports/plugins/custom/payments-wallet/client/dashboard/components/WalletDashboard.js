@@ -24,21 +24,21 @@ class WalletDashboard extends Component {
 
   fetchWalletHistory = (page) => {
     const { currentPage, pagesCount: lastPage } = this.state;
-
+    let pagination;
     if (page === "next" && currentPage < lastPage) {
-      return this.setState({ currentPage: currentPage + 1 });
+      pagination = currentPage + 1;
     }
     if (page === "prev" && currentPage > 1) {
-      return this.setState({ currentPage: currentPage - 1 });
+      pagination = currentPage - 1;
     }
     if (page === "first" && currentPage > 1) {
-      return this.setState({ currentPage: 1 });
+      pagination = 1;
     }
     if (page === "last" && currentPage < lastPage) {
-      return this.setState({ currentPage: lastPage });
+      pagination = lastPage;
     }
-
-    return;
+    const { walletHistory } = this.props.fetchWalletHistory(pagination);
+    return this.setState({ currentPage: pagination, walletHistory });
   }
 
   buttonDisabled = (page) => {

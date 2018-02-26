@@ -261,6 +261,7 @@ const wrapComponent = (Comp) => (
             isDeleted={this.state.isDeleted}
             {...this.props}
             variant={this.props.variant}
+            currentProduct={ReactionProduct.selectedProduct()}
           />
         );
       }

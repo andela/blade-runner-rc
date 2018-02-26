@@ -1,0 +1,13 @@
+{
+  "ROOT_URL": "",
+  "MAIL_URL": "",
+  "public": {
+    "HOST_URL": "https://blade-runner-rc-staging.herokuapp.com"
+  },
+  "reaction": {
+    "REACTION_USER": "",
+    "REACTION_AUTH": "",
+    "REACTION_EMAIL": ""
+  },
+  "REACTION_LOG_LEVEL": "info"
+}
