@@ -98,7 +98,7 @@ class SearchModal extends Component {
                 onChange={() => this.props.handleSort("sortByLatest")}
               >
                 <option value="null" selected disabled>
-                  Filter by date
+                  Sort by date
                 </option>
                 <option value="newest">Newest</option>
                 <option value="oldest">Oldest</option>
@@ -114,7 +114,7 @@ class SearchModal extends Component {
                 onChange={() => this.props.handleSort("sortByPrice")}
               >
                 <option value="null" selected disabled>
-                  Filter by price
+                  Sort by price
                 </option>
                 <option value="Price: high-low">Price: high-low</option>
                 <option value="Price: low-high">Price: low-high</option>
