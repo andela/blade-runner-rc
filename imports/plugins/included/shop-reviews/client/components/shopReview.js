@@ -6,6 +6,7 @@ import { Reaction } from "/client/api";
 import ShopRating from "./shopRating";
 import calculateAverageRating from "./../../../product-detail-simple/client/helpers";
 import { ShopReviews } from "/lib/collections";
+import { cannotReview } from "./../../../product-detail-simple/client/components/productReview";
 import { Card, CardHeader, CardBody, ReactionAvatar } from "/imports/plugins/core/ui/client/components";
 import { registerComponent, composeWithTracker } from "@reactioncommerce/reaction-components";
 
@@ -73,8 +74,7 @@ class ShopReview extends React.Component {
             <CardHeader i18nKeyTitle={"Shop reviews"} title={"Shop reviews"} />
             <CardBody>
               {
-                user.emails.length > 0 &&
-
+                !cannotReview() &&
                 <div className="row pad">
                   <div className="media">
                     <div className="media-left pr-small">
@@ -110,8 +110,12 @@ class ShopReview extends React.Component {
                 </div>
               }
               {
-                user.emails.length < 1 &&
+                cannotReview() && user.emails.length < 1 &&
                 <p className="text-center">Please sign in to add a review</p>
+              }
+              {
+                cannotReview() && user.emails.length >= 1 &&
+                <p className="text-center">Administrators and Owners can't review shops.</p>
               }
               <div className="review-container review-box">
                 {reviewList}

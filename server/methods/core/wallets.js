@@ -104,9 +104,8 @@ Meteor.methods({
     };
 
     if (transactionType === "credit") {
-      let wallet;
-      to === from ? wallet = Wallets.findOne({ ownerEmail: to }) : "";
-      const currentBalance = wallet.balance;
+      const recieverWallet = Wallets.findOne({ ownerEmail: to });
+      const currentBalance = recieverWallet.balance;
       updateBalance(currentBalance, amount, to);
     } else {
       const senderWallet = Wallets.findOne({ ownerEmail: from });
@@ -133,6 +132,6 @@ Meteor.methods({
     if (wallet) {
       return wallet._id.valueOf();
     }
-    throw new Meteor.Error(401, "Access denied");
+    throw new Meteor.Error(404, "User Does Not Exist");
   }
 });

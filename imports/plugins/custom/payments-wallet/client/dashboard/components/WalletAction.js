@@ -14,19 +14,23 @@ class WalletAction extends Component {
     }
   }
 
+  validateInputs = (inputs) => {
+    return !!Number(inputs);
+  }
+
   handleFormSubmit = (event) => {
     event.preventDefault();
-    const amount = parseInt(this.amountInput.value, 10);
+    const amount = Number(this.amountInput.value);
+    if (!this.validateInputs(amount)) {
+      return Alerts.toast("Amount must be a number", "error");
+    }
     this.setState({ isLoading: true });
     let email;
-
     if (this.props.actionType === "fund") {
       this.props.formHandler(amount)
         .then((fundWalletSuccess) => {
           Alerts.toast(fundWalletSuccess.message);
-
           this.resetInputs();
-
           this.setState({ isLoading: false });
         })
         .catch((fundWalletError) => {
@@ -81,7 +85,6 @@ class WalletAction extends Component {
               <label>
                 Amount (in Naira)
                 <input
-                  type="number"
                   placeholder="e.g: 5000"
                   className="form-control"
                   ref={(node) => (this.amountInput = node)}
