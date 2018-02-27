@@ -35,7 +35,7 @@ Meteor.methods({
       const wallet = Wallets.findOne({ ownerEmail: email });
 
       if (!wallet) {
-        Wallets.insert({});
+        Wallets.insert({ ownerEmail: email, balance: 0 });
       }
 
       Meteor.call("wallet/getUserWalletId", email, (getWalletIdError, walletId) => {
@@ -59,8 +59,6 @@ Meteor.methods({
         if (err) Logger.error(err);
       });
 
-      // update item workflow
-      // Meteor.call("workflow/pushItemWorkflow", "coreOrderItemWorkflow/canceled", order, itemIds);
       Orders.update({
         "_id": order._id,
         "billing.shopId": Reaction.getShopId
@@ -72,9 +70,9 @@ Meteor.methods({
           "workflow.workflow": "coreOrderWorkflow/canceled"
         }
       });
-      return 1;
+      return { success: true };
     }
-    return 2;
+    return { success: false };
   },
   /**
    * @name wallet/updateBalance

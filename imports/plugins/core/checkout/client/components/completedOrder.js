@@ -50,10 +50,10 @@ const CompletedOrder = ({ order, orderId, shops, orderSummary, paymentMethods, h
 
   return (
     <div className="container order-completed">
-      <div style={{ display: "flex", width: "100%" }}>
+      <div className="outer-button">
         { headerText }
         {(orderStatus === "new" || orderStatus === "coreOrderWorkflow/canceled") &&
-        <div style={{ marginLeft: "auto" }}>
+        <div className="button-margin">
           <CancelOrderButton
             order={order}
             orderStatus={orderStatus}
@@ -124,6 +124,7 @@ const CompletedOrder = ({ order, orderId, shops, orderSummary, paymentMethods, h
 CompletedOrder.propTypes = {
   handleDisplayMedia: PropTypes.func,
   isProfilePage: PropTypes.bool,
+  onCancelOrderClick: PropTypes.func,
   order: PropTypes.object,
   orderId: PropTypes.string,
   orderSummary: PropTypes.object,

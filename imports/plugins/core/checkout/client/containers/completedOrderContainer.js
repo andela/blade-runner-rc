@@ -38,13 +38,15 @@ handlers.onCancelOrderClick = (order) => {
     title: "Cancel Order",
     type: "question",
     text: "Are you sure you want to cancel this order?",
-    showCancelButton: true
+    showCancelButton: true,
+    confirmButtonText: "Yes",
+    cancelButtonText: "No"
   }, (isConfirm) => {
     if (isConfirm) {
       Meteor.call("wallet/cancelOrder", order, (err, res) => {
-        if (res === 2) {
+        if (res.success === false) {
           Alerts.toast("Sorry, guest cannot cancel order", "error");
-        } else if (res === 1) {
+        } else if (res.success === true) {
           Alerts.toast("Order successfully cancelled. Your wallet has  been refunded", "success");
         } else {
           Alerts.toast("An error occured, please try again", "error");
