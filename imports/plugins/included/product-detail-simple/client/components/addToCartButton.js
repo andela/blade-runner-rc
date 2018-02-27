@@ -41,6 +41,7 @@ class AddToCartButton extends Component {
       );
     }
 
+
     if (this.props.editable && this.hasVariants === false) {
       return (
         <Components.Alert>
