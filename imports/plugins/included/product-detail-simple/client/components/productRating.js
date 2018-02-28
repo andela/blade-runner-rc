@@ -28,7 +28,8 @@ class ProductRating extends Component {
                 emptyStarColor="#EEE"
               />
             </div>
-            <div className="react-rating-count">
+            <div className="react-rating-count tooltip">
+              <span className="tooltiptext">no of ratings</span>
               ({reviews.length})
               <Scroll type="id" element="productReviews">
                 {
