@@ -257,6 +257,15 @@ class ProductAdmin extends Component {
               placeholder="Select a product type"
               value={this.product.isDigital}
             />
+            <Components.Select
+              clearable={false}
+              label="Category"
+              name="category"
+              onChange={this.handleSelectChange}
+              options={this.props.categories}
+              placeholder="Select a category"
+              value={this.product.category}
+            />
             <Components.TextField
               i18nKeyLabel="productDetailEdit.title"
               i18nKeyPlaceholder="productDetailEdit.title"
