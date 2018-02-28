@@ -79,9 +79,11 @@ export default {
     "review",
     "wallet",
     "account/wallet",
-    "pages"
+    "pages",
+    "category-page",
+    "category"
   ],
-  defaultVisitorRoles: ["anonymous", "guest", "product", "tag", "index", "cart/checkout", "cart/completed", "review", "pages"],
+  defaultVisitorRoles: ["anonymous", "guest", "product", "tag", "index", "cart/checkout", "cart/completed", "review", "pages", "category-page", "category"],
 
   createGroups,
   /**
