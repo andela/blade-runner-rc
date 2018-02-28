@@ -37,13 +37,28 @@ const CompletedOrder = ({ order, orderId, shops, orderSummary, paymentMethods, h
     headerText = (<p className="order-id"><strong>Order ID </strong>{orderId}</p>);
   } else {
     headerText = (
-      <div className="order-details-header">
-        {/* This is the left side / main content */}
-        <h3><Components.Translation defaultValue="Thank You" i18nKey={"cartCompleted.thankYou"} /></h3>
-        <p><strong>Order ID </strong>{orderId}</p>
-        {/* show a different message depending on whether we have an email or not */}
-        <AddEmail order={order} orderEmail={order.email} />
-        {/* This is the left side / main content*/}
+      <div className="container">
+        <div className="row">
+          <div className="order-details-header col-md-6">
+            {/* This is the left side / main content */}
+            <h3><Components.Translation defaultValue="Thank You" i18nKey={"cartCompleted.thankYou"} /></h3>
+            <p><strong>Order ID </strong>{orderId}</p>
+            {/* show a different message depending on whether we have an email or not */}
+            <AddEmail order={order} orderEmail={order.email} />
+            {/* This is the left side / main content*/}
+          </div>
+          <div className="col-md-6">
+            {(orderStatus === "new" || orderStatus === "coreOrderWorkflow/canceled") &&
+               <div className="button-margin">
+                 <CancelOrderButton
+                   order={order}
+                   orderStatus={orderStatus}
+                   onCancelOrderClick={onCancelOrderClick}
+                 />
+               </div>
+            }
+          </div>
+        </div>
       </div>
     );
   }
@@ -52,15 +67,6 @@ const CompletedOrder = ({ order, orderId, shops, orderSummary, paymentMethods, h
     <div className="container order-completed">
       <div className="outer-button">
         { headerText }
-        {(orderStatus === "new" || orderStatus === "coreOrderWorkflow/canceled") &&
-        <div className="button-margin">
-          <CancelOrderButton
-            order={order}
-            orderStatus={orderStatus}
-            onCancelOrderClick={onCancelOrderClick}
-          />
-        </div>
-        }
       </div>
       <div className="order-details-main">
         <div className="order-details-content-title">

@@ -6,7 +6,7 @@ const CancelOrderButton = (props) => {
   const { order, orderStatus, onCancelOrderClick } = props;
   const checkOrderStatus = "coreOrderWorkflow/canceled";
   return (
-    <div>
+    <div className="rfloat">
       {
         (orderStatus === "new" || orderStatus === checkOrderStatus) &&
         <Components.Button
