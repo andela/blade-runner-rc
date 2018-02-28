@@ -9,6 +9,7 @@ import { ReactionProduct } from "/lib/api";
 import { Tags, Media, Templates } from "/lib/collections";
 import { Countries } from "/client/collections";
 import { ProductAdmin } from "../components";
+import categories from "./categories";
 
 const wrapComponent = (Comp) => (
   class ProductAdminContainer extends Component {
@@ -160,7 +161,8 @@ function composer(props, onData) {
       templates,
       countries,
       editable,
-      productTypes
+      productTypes,
+      categories
     });
   } else {
     onData(null, {
