@@ -13,11 +13,12 @@ class OrdersList extends Component {
   static propTypes = {
     allOrdersInfo: PropTypes.array,
     handleDisplayMedia: PropTypes.func,
-    isProfilePage: PropTypes.bool
+    isProfilePage: PropTypes.bool,
+    onCancelOrderClick: PropTypes.func
   }
 
   render() {
-    const { allOrdersInfo, handleDisplayMedia } = this.props;
+    const { allOrdersInfo, handleDisplayMedia, onCancelOrderClick } = this.props;
 
     if (allOrdersInfo) {
       return (
@@ -34,6 +35,7 @@ class OrdersList extends Component {
                 paymentMethods={order.paymentMethods}
                 productImages={order.productImages}
                 handleDisplayMedia={handleDisplayMedia}
+                onCancelOrderClick={onCancelOrderClick}
                 isProfilePage={this.props.isProfilePage}
               />
             );
