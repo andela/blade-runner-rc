@@ -108,6 +108,7 @@ class ActionableAnalyticsContainer extends Component {
             <TabPanel>
               <Overview data={Transform.forOverview(this.state.orders)} />
             </TabPanel>
+
             <TabPanel>
               <div>
                 <button
@@ -124,9 +125,10 @@ class ActionableAnalyticsContainer extends Component {
                     onChange={this.handleSelect}
                   />
                 }
-                <TopSelling data={Transform.forBarChart(this.state.ordersWithDate)} />
+                <TopSelling data={Transform.forTopSelling(this.state.ordersWithDate)} />
               </div>
             </TabPanel>
+
             <TabPanel>
               <TopRated topRated={Transform.forTopRated(this.state.products, this.state.productReviews)}/>
             </TabPanel>

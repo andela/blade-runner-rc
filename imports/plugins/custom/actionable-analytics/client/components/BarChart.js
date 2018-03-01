@@ -4,7 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "rec
 
 const propTypes = {
   barDataKey: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(PropTypes.Object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.any).isRequired,
   labelValue: PropTypes.string.isRequired,
   xaxisDataKey: PropTypes.string.isRequired
 };
