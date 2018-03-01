@@ -1,1 +1,1 @@
-export { default as transformForBarChart } from "./transform";
+export { forTopSelling, forOverview, forTopRated } from "./Transform";
