@@ -61,6 +61,10 @@ Subscriptions.ShopReview = Subscriptions.Manager.subscribe("ShopReview");
 
 Subscriptions.AnalyticsOrders = Subscriptions.Manager.subscribe("Orders");
 
+Subscriptions.AnalyticsOrders = Subscriptions.Manager.subscribe("Products");
+
+// Subscriptions.AnalyticsOrders = Subscriptions.Manager.subscribe("ProductReviews");
+
 /**
  * Subscriptions that need to reload on new sessions
  */
