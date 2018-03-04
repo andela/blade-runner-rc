@@ -17,7 +17,7 @@ const propTypes = {
  */
 const AnalyticsBarChart = ({ data, xaxisDataKey, barDataKey, labelValue }) => {
   return (
-    <BarChart width={600} height={300} data={data}
+    <BarChart width={800} height={400} data={data}
       margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
     >
       <XAxis dataKey={xaxisDataKey}/>

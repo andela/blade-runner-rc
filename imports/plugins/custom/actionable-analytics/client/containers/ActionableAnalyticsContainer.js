@@ -14,7 +14,6 @@ class ActionableAnalyticsContainer extends Component {
     super(props);
 
     this.state = {
-      ordersWithDate: [],
       orders: [],
       productReviews: [],
       products: [],
@@ -25,7 +24,6 @@ class ActionableAnalyticsContainer extends Component {
   }
 
   componentWillMount() {
-    this.fetchOrdersWithDate();
     this.fetchOrders();
     this.fetchProductReviews();
     this.fetchProducts();
@@ -34,22 +32,14 @@ class ActionableAnalyticsContainer extends Component {
   /**
    * Fetch orders with specified dates
    */
-  fetchOrdersWithDate = () => {
-    const ordersWithDate = Orders.find({
+  fetchOrders = () => {
+    const orders = Orders.find({
       shopId: Reaction.getShopId(),
       createdAt: {
         $gte: new Date(this.state.startDate),
         $lte: new Date(this.state.endDate)
       }
     }).fetch();
-    this.setState({ ordersWithDate });
-  }
-
-  /**
-   * Fetch all orders
-   */
-  fetchOrders = () => {
-    const orders = Orders.find({ shopId: Reaction.getShopId() }).fetch();
     this.setState({ orders });
   }
 
@@ -78,7 +68,7 @@ class ActionableAnalyticsContainer extends Component {
       startDate: range.startDate.format(),
       endDate: range.endDate.format()
     }, () => {
-      this.fetchOrdersWithDate();
+      this.fetchOrders();
     });
   }
 
@@ -89,6 +79,30 @@ class ActionableAnalyticsContainer extends Component {
     this.setState({
       toggleDateRangeShow: !this.state.toggleDateRangeShow
     });
+  }
+
+  /**
+   * Render date section
+   */
+  dateSection = () => {
+    return (
+      <div>
+        <button
+          className="btn btn-default btn-lg mt-3 date-button"
+          onClick={this.toggleDateRangeShow}
+        >
+          {moment(this.state.startDate).format("ll")}
+          <i className="fa fa-arrow-right" />
+          {moment(this.state.endDate).format("ll")}
+        </button>
+        {
+          this.state.toggleDateRangeShow &&
+      <DateRange
+        onChange={this.handleSelect}
+      />
+        }
+      </div>
+    );
   }
 
   /**
@@ -106,26 +120,16 @@ class ActionableAnalyticsContainer extends Component {
             </TabList>
 
             <TabPanel>
-              <Overview data={Transform.forOverview(this.state.orders)} />
+              <div>
+                {this.dateSection()}
+                <Overview data={Transform.forOverview(this.state.orders)} />
+              </div>
             </TabPanel>
 
             <TabPanel>
               <div>
-                <button
-                  className="btn btn-default btn-lg mt-3 date-button"
-                  onClick={this.toggleDateRangeShow}
-                >
-                  {moment(this.state.startDate).format("ll")}
-                  <i className="fa fa-arrow-right" />
-                  {moment(this.state.endDate).format("ll")}
-                </button>
-                {
-                  this.state.toggleDateRangeShow &&
-                  <DateRange
-                    onChange={this.handleSelect}
-                  />
-                }
-                <TopSelling data={Transform.forTopSelling(this.state.ordersWithDate)} />
+                {this.dateSection()}
+                <TopSelling data={Transform.forTopSelling(this.state.orders)} />
               </div>
             </TabPanel>
 

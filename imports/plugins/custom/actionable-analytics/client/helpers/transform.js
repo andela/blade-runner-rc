@@ -1,3 +1,4 @@
+import calculateAverageRating from "../../../../included/product-detail-simple/client/helpers";
 
 /**
  * Transform data for top selling section
@@ -35,6 +36,10 @@ export const forTopSelling = (orders) => {
  * @returns {Object} overview
  */
 export const forOverview = (orders) => {
+  if (orders.length === 0 || !orders) {
+    return;
+  }
+
   const sales = [];
   const shippingCost = [];
   let cancelledOrders = 0;
@@ -72,15 +77,23 @@ export const forOverview = (orders) => {
 export const forTopRated = (products, productReviews) => {
   const topRated = [];
 
-  productReviews.map((productReview) => {
-    products.map((product) => {
-      if (productReview.productId === product._id) {
-        topRated.push({
-          name: product.title,
-          rating: productReview.rating
-        });
+  products.map((product) => {
+    const productName = product.title;
+    let hasReviews = false;
+    const prodReviews = [];
+    productReviews.map((productReview) => {
+      if (product._id === productReview.productId) {
+        hasReviews = true;
+        prodReviews.push(productReview);
       }
     });
+    if (hasReviews) {
+      topRated.push({
+        name: productName,
+        rating: calculateAverageRating(prodReviews)
+      });
+    }
   });
+
   return topRated;
 };
