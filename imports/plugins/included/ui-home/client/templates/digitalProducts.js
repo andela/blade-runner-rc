@@ -1,9 +1,9 @@
-import { Components } from "@reactioncommerce/reaction-components";
 import { Template } from "meteor/templating";
+import DigitalProducts from "../digitalProducts/components/DigitalProducts";
 import "./digitalProducts.html";
 
 Template.digitalProducts.helpers({
   DigitalProducts() {
-    return Components.Products;
+    return DigitalProducts;
   }
 });

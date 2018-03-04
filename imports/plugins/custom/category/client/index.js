@@ -1,2 +1,2 @@
-import "./category-page/templates/category.html";
-import "./category-page/templates/category";
+import "./templates/category.html";
+import "./templates/category.js";

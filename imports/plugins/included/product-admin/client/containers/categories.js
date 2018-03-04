@@ -1,48 +1,57 @@
 const categories = [
   {
     label: "Electronics",
-    value: "Electronics",
-    image: "Image will be here"
+    value: "electronics",
+    image: "Image will be here",
+    route: "/category/electronics"
   },
   {
     label: "Women Clothing",
-    value: "Women Clothing",
-    image: "Image will be here"
+    value: "women clothing",
+    image: "Image will be here",
+    route: "/category/women-clothing"
   },
   {
     label: "Men Clothing",
-    value: "Men Clothing",
-    image: "Image will be here"
+    value: "men clothing",
+    image: "Image will be here",
+    route: "/category/men-clothing"
   },
   {
     label: "Toys",
-    value: "Toys",
-    image: "Image will be here"
+    value: "toys",
+    image: "Image will be here",
+    route: "/category/toys"
   },
   {
     label: "Heels",
-    value: "Heels",
-    image: "Image will be here"
+    value: "heels",
+    image: "Image will be here",
+    route: "/category/heels"
   },
   {
     label: "Sneakers",
-    value: "Sneakers",
-    image: "Image will be here"
+    value: "sneakers",
+    image: "Image will be here",
+    route: "/category/sneakers"
   },
   {
     label: "Sunglasses",
-    value: "Sunglasses",
-    image: "Image will be here"
+    value: "sunglasses",
+    image: "Image will be here",
+    route: "/category/sunglasses"
   },
   {
     label: "Hat",
     value: "Hat",
-    image: "Image will be here"
+    image: "Image will be here",
+    route: "/category/hat"
   },
   {
     label: "Caps",
-    value: "Caps",
-    image: "Image will be here"
+    value: "caps",
+    image: "Image will be here",
+    route: "/category/caps"
   }
 ];
 
