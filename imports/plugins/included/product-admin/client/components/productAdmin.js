@@ -447,6 +447,7 @@ class ProductAdmin extends Component {
 }
 
 ProductAdmin.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.object),
   countries: PropTypes.arrayOf(PropTypes.object),
   editFocus: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   editable: PropTypes.bool,

@@ -231,9 +231,3 @@ Meteor.publish("Product", function (productIdOrHandle, shopIdOrSlug) {
   ];
 });
 
-Meteor.publish("Digital Products", function () {
-  const digitalProducts = Products.find({ isDigital: true }).fetch();
-  digitalProducts.map(product => console.log("==================", product));
-  console.log(">>>>>>>>>>>>>>>>>>>>>>Published", digitalProducts);
-  return digitalProducts;
-});
