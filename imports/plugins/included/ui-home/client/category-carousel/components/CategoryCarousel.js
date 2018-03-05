@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import categories from "../../../../../included/product-admin/client/containers/categories";
 
 class CategoryCarousel extends Component {
@@ -13,7 +12,7 @@ class CategoryCarousel extends Component {
         {
           categories.map(category => (
             <div>
-              <img src="resources/img/cart1.jpg" className="cart-image" />
+              <img src={category.image} className="cart-image" />
               <div>
                 <a className="heading" href={category.route}>{category.value}</a>
               </div>
