@@ -40,6 +40,7 @@ public/custom/*
 private/custom/*
 !private/custom/.gitkeep
 
+!imports/plugins/custom/actionable-analytics
 !imports/plugins/custom/*
 !imports/plugins/custom/payments-paystack
 !imports/plugins/custom/payments-wallet
