@@ -11,6 +11,7 @@ class SearchModal extends Component {
     handleAccountClick: PropTypes.func,
     handleChange: PropTypes.func,
     handleClick: PropTypes.func,
+    handleSort: PropTypes.func,
     handleTagClick: PropTypes.func,
     handleToggle: PropTypes.func,
     products: PropTypes.array,
@@ -71,6 +72,60 @@ class SearchModal extends Component {
     }
   }
 
+  renderSearchFilter() {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-md-4">
+            <label>Categories</label>
+            <div>
+              <select id="sortByCategory" className="form-control" onChange={() => this.props.handleSort("sortByCategory")}>
+                <option value="null" disabled>
+                  Filter by category
+                </option>
+                <option value="allTypes">All products</option>
+                <option value="digital">Digital product</option>
+                <option value="physical">Non-digital product</option>
+              </select>
+            </div>
+          </div>
+          <div className="col-md-4">
+            <label>Date</label>
+            <div>
+              <select
+                id="sortByLatest"
+                className="form-control"
+                onChange={() => this.props.handleSort("sortByLatest")}
+              >
+                <option value="null" selected disabled>
+                  Sort by date
+                </option>
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+              </select>
+            </div>
+          </div>
+          <div className="col-md-4">
+            <label>Price</label>
+            <div>
+              <select
+                id="sortByPrice"
+                className="form-control"
+                onChange={() => this.props.handleSort("sortByPrice")}
+              >
+                <option value="null" selected disabled>
+                  Sort by price
+                </option>
+                <option value="Price: high-low">Price: high-low</option>
+                <option value="Price: low-high">Price: low-high</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   renderProductSearchTags() {
     return (
       <div className="rui search-modal-tags-container">
@@ -102,6 +157,7 @@ class SearchModal extends Component {
           this.props.products.length < 1 &&
           <h3><strong>No Product(s) Found</strong></h3>}
         </div>
+        {this.renderSearchFilter()}
         <div className="rui search-modal-results-container">
           {this.props.products.length > 0 &&
             <ProductGridContainer

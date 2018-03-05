@@ -34,6 +34,8 @@ BrowserPolicy.content.allowConnectOrigin(`ws://${hostname}`);
 BrowserPolicy.content.allowConnectOrigin(`wss://${hostname}`);
 
 BrowserPolicy.content.allowOriginForAll("*.facebook.com");
+BrowserPolicy.content.allowOriginForAll("*.twitter.com");
+BrowserPolicy.content.allowOriginForAll("*.twimg.com");
 BrowserPolicy.content.allowOriginForAll("*.fbcdn.net");
 BrowserPolicy.content.allowOriginForAll("connect.facebook.net");
 BrowserPolicy.content.allowOriginForAll("*.googleusercontent.com");

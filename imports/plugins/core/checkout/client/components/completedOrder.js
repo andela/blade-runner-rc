@@ -4,6 +4,7 @@ import { Components } from "@reactioncommerce/reaction-components";
 import CompletedShopOrders from "./completedShopOrders";
 import CompletedOrderPaymentMethod from "./completedOrderPaymentMethods";
 import CompletedOrderSummary from "./completedOrderSummary";
+import CancelOrderButton from "./cancelOrderButton";
 import AddEmail from "./addEmail";
 
 /**
@@ -18,7 +19,8 @@ import AddEmail from "./addEmail";
  * @property {Booleam} isProfilePage - A boolean value that checks if current page is user profile page
  * @return {Node} React node containing the top-level component for displaying the completed order/receipt page
  */
-const CompletedOrder = ({ order, orderId, shops, orderSummary, paymentMethods, handleDisplayMedia, isProfilePage }) => {
+const CompletedOrder = ({ order, orderId, shops, orderSummary, paymentMethods, handleDisplayMedia, isProfilePage, onCancelOrderClick }) => {
+  const orderStatus = order.workflow.status;
   if (!order) {
     return (
       <Components.NotFound
@@ -35,20 +37,37 @@ const CompletedOrder = ({ order, orderId, shops, orderSummary, paymentMethods, h
     headerText = (<p className="order-id"><strong>Order ID </strong>{orderId}</p>);
   } else {
     headerText = (
-      <div className="order-details-header">
-        {/* This is the left side / main content */}
-        <h3><Components.Translation defaultValue="Thank You" i18nKey={"cartCompleted.thankYou"} /></h3>
-        <p><strong>Order ID </strong>{orderId}</p>
-        {/* show a different message depending on whether we have an email or not */}
-        <AddEmail order={order} orderEmail={order.email} />
-        {/* This is the left side / main content*/}
+      <div className="container">
+        <div className="row">
+          <div className="order-details-header col-md-6">
+            {/* This is the left side / main content */}
+            <h3><Components.Translation defaultValue="Thank You" i18nKey={"cartCompleted.thankYou"} /></h3>
+            <p><strong>Order ID </strong>{orderId}</p>
+            {/* show a different message depending on whether we have an email or not */}
+            <AddEmail order={order} orderEmail={order.email} />
+            {/* This is the left side / main content*/}
+          </div>
+          <div className="col-md-6">
+            {(orderStatus === "new" || orderStatus === "coreOrderWorkflow/canceled") &&
+               <div className="button-margin">
+                 <CancelOrderButton
+                   order={order}
+                   orderStatus={orderStatus}
+                   onCancelOrderClick={onCancelOrderClick}
+                 />
+               </div>
+            }
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="container order-completed">
-      { headerText }
+      <div className="outer-button">
+        { headerText }
+      </div>
       <div className="order-details-main">
         <div className="order-details-content-title">
           <p><Components.Translation defaultValue="Your Items" i18nKey={"cartCompleted.yourItems"} /></p>
@@ -111,6 +130,7 @@ const CompletedOrder = ({ order, orderId, shops, orderSummary, paymentMethods, h
 CompletedOrder.propTypes = {
   handleDisplayMedia: PropTypes.func,
   isProfilePage: PropTypes.bool,
+  onCancelOrderClick: PropTypes.func,
   order: PropTypes.object,
   orderId: PropTypes.string,
   orderSummary: PropTypes.object,

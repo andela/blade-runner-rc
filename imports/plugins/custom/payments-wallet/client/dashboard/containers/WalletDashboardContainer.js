@@ -5,8 +5,10 @@ import { Reaction } from "/client/api";
 import { Accounts, Wallets, WalletHistories } from "/lib/collections";
 
 import { Paystack } from "../../../../../custom/payments-paystack/lib/api";
+import roundToTwo from "../../helpers/roundToTwo";
 
 import WalletDashboard from "../components/WalletDashboard";
+const emailRegex = /\.{1}/;
 
 const handlers = {
   fundWallet(amount) {
@@ -17,12 +19,15 @@ const handlers = {
 
       Meteor.subscribe("Packages", Reaction.getShopId());
       const email = Accounts.findOne({ _id: Meteor.userId() }).emails[0].address;
+      let emailForPaystack = email;
+
+      !emailRegex.test(email) ? emailForPaystack += ".com" : "";
 
       Meteor.call("paystack/loadApiKeys", (getPublicKeyError, { publicKey, secretKey }) => {
         if (!getPublicKeyError) {
           const payload = {
             key: publicKey,
-            email,
+            email: emailForPaystack,
             amount: (amount * 100),
             currency: "NGN",
             callback: function (response) {
@@ -44,7 +49,6 @@ const handlers = {
                       message: "Wallet funded successfully",
                       type: "success"
                     });
-
                     Meteor.call("wallet/insertTransaction", transaction);
                     Meteor.call("wallet/updateBalance", transaction);
                   });
@@ -79,7 +83,7 @@ const handlers = {
         return reject(new Error("invalid amount, please try again"));
       }
 
-      if (amount > senderBalance) {
+      if (amount >  roundToTwo(senderBalance)) {
         return reject(new Error("You dont have enough for this transfer, please fund your wallet"));
       }
 
@@ -88,20 +92,19 @@ const handlers = {
           return reject(getWalletIdError);
         }
         const senderTransaction = {
-          amount: parseInt(amount, 10),
+          amount: Number(amount),
           transactionType: "debit",
           walletId: senderWalletId,
           from: senderEmail,
           to: receiverEmail
         };
         const receiverTransaction = {
-          amount: parseInt(amount, 10),
+          amount: Number(amount),
           transactionType: "credit",
           walletId: receiverWalletId,
           from: senderEmail,
           to: receiverEmail
         };
-
         const transactions = [senderTransaction, receiverTransaction];
         transactions.forEach((transaction) => {
           Meteor.call("wallet/updateBalance", transaction);

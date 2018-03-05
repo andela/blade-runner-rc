@@ -1,6 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
-import { Wallets, WalletHistories } from "/lib/collections";
+import { Wallets, WalletHistories, Orders } from "/lib/collections";
+import { Logger, Reaction } from "/server/api";
 
 /**
  * @file Methods for posting and managing shop reviews.
@@ -23,6 +24,55 @@ Meteor.methods({
   "wallet/insertTransaction": function (transaction) {
     check(transaction, Object);
     WalletHistories.insert(transaction);
+  },
+
+  "wallet/cancelOrder": function (order) {
+    check(order, Object);
+    const { email } = order;
+    if (email) {
+      const amount = order.billing[0].invoice.total;
+
+      const wallet = Wallets.findOne({ ownerEmail: email });
+
+      if (!wallet) {
+        Wallets.insert({ ownerEmail: email, balance: 0 });
+      }
+
+      Meteor.call("wallet/getUserWalletId", email, (getWalletIdError, walletId) => {
+        const transaction = {
+          walletId,
+          amount: Number(amount),
+          to: email,
+          from: "reaction@payments.com",
+          transactionType: "credit"
+        };
+        Meteor.call("wallet/updateBalance", transaction);
+        Meteor.call("wallet/insertTransaction", transaction);
+      });
+
+      // Send notification to users
+      const prefix = Reaction.getShopPrefix();
+      const url = `${prefix}/notification`;
+      const sms = true;
+
+      Meteor.call("notification/send", order.userId, "orderCanceled", url, sms, (err) => {
+        if (err) Logger.error(err);
+      });
+
+      Orders.update({
+        "_id": order._id,
+        "billing.shopId": Reaction.getShopId
+      }, {
+        $set: {
+          "workflow.status": "coreOrderWorkflow/canceled"
+        },
+        $push: {
+          "workflow.workflow": "coreOrderWorkflow/canceled"
+        }
+      });
+      return { success: true };
+    }
+    return { success: false };
   },
   /**
    * @name wallet/updateBalance
@@ -52,9 +102,8 @@ Meteor.methods({
     };
 
     if (transactionType === "credit") {
-      let wallet;
-      to === from ? wallet = Wallets.findOne({ ownerEmail: to }) : "";
-      const currentBalance = wallet.balance;
+      const recieverWallet = Wallets.findOne({ ownerEmail: to });
+      const currentBalance = recieverWallet.balance;
       updateBalance(currentBalance, amount, to);
     } else {
       const senderWallet = Wallets.findOne({ ownerEmail: from });
@@ -81,6 +130,6 @@ Meteor.methods({
     if (wallet) {
       return wallet._id.valueOf();
     }
-    throw new Meteor.Error(401, "Access denied");
+    throw new Meteor.Error(404, "User Does Not Exist");
   }
 });
