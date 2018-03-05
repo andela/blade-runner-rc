@@ -76,15 +76,15 @@ class ActionableAnalyticsContainer extends Component {
    * Toggles visibility of date component
    */
   toggleDateRangeShow = () => {
-    this.setState({
-      toggleDateRangeShow: !this.state.toggleDateRangeShow
+    this.setState((prevState) => {
+      return { toggleDateRangeShow: !prevState.toggleDateRangeShow };
     });
   }
 
   /**
    * Render date section
    */
-  dateSection = () => {
+  renderDateSection = () => {
     return (
       <div>
         <button
@@ -97,9 +97,9 @@ class ActionableAnalyticsContainer extends Component {
         </button>
         {
           this.state.toggleDateRangeShow &&
-      <DateRange
-        onChange={this.handleSelect}
-      />
+          <DateRange
+            onChange={this.handleSelect}
+          />
         }
       </div>
     );
@@ -121,14 +121,14 @@ class ActionableAnalyticsContainer extends Component {
 
             <TabPanel>
               <div>
-                {this.dateSection()}
+                {this.renderDateSection()}
                 <Overview data={Transform.forOverview(this.state.orders)} />
               </div>
             </TabPanel>
 
             <TabPanel>
               <div>
-                {this.dateSection()}
+                {this.renderDateSection()}
                 <TopSelling data={Transform.forTopSelling(this.state.orders)} />
               </div>
             </TabPanel>
