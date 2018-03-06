@@ -230,3 +230,4 @@ Meteor.publish("Product", function (productIdOrHandle, shopIdOrSlug) {
     mediaCursor
   ];
 });
+

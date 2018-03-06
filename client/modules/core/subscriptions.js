@@ -55,6 +55,8 @@ Subscriptions.Groups = Subscriptions.Manager.subscribe("Groups");
 
 Subscriptions.Media = Subscriptions.Manager.subscribe("Media");
 
+Subscriptions.Products = Subscriptions.Manager.subscribe("Products");
+
 Subscriptions.ProductReviews = Subscriptions.Manager.subscribe("ProductReviews");
 
 Subscriptions.ShopReview = Subscriptions.Manager.subscribe("ShopReview");

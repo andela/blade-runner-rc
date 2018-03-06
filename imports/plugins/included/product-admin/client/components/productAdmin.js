@@ -257,6 +257,15 @@ class ProductAdmin extends Component {
               placeholder="Select a product type"
               value={this.product.isDigital}
             />
+            <Components.Select
+              clearable={false}
+              label="Category"
+              name="category"
+              onChange={this.handleSelectChange}
+              options={this.props.categories}
+              placeholder="Select a category"
+              value={this.product.category}
+            />
             <Components.TextField
               i18nKeyLabel="productDetailEdit.title"
               i18nKeyPlaceholder="productDetailEdit.title"
@@ -438,6 +447,7 @@ class ProductAdmin extends Component {
 }
 
 ProductAdmin.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.object),
   countries: PropTypes.arrayOf(PropTypes.object),
   editFocus: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   editable: PropTypes.bool,

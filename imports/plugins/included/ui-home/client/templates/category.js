@@ -1,4 +1,5 @@
 import { Template } from "meteor/templating";
+import CategoryCarousel from "../category-carousel/components/CategoryCarousel";
 
 Template.category.onRendered(function () {
   this.$(".owl-carousel").owlCarousel({
@@ -29,4 +30,10 @@ Template.category.onRendered(function () {
       }
     }
   });
+});
+
+Template.category.helpers({
+  CategoryCarousel() {
+    return CategoryCarousel;
+  }
 });
