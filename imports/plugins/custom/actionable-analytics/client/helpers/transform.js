@@ -56,6 +56,11 @@ export const forOverview = (orders) => {
     }
   });
 
+  if (sales.length === 0 || shippingCost.length === 0) {
+    const overview = {};
+    return overview;
+  }
+
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
   const overview = {
     cancelledOrders,
