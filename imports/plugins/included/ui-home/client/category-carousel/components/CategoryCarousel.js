@@ -7,20 +7,21 @@ class CategoryCarousel extends Component {
   }
 
   renderComponent = () => {
-    return (<div className="carousel-div">
-      <div className="owl-carousel">
-        {
-          categories.map(category => (
-            <div>
-              <img src={category.image} className="cart-image" />
+    return (
+      <div className="carousel-div">
+        <div className="owl-carousel">
+          {
+            categories.map(category => (
               <div>
-                <a className="heading" href={category.route}>{category.value}</a>
+                <img src={category.image} className="cart-image" />
+                <div>
+                  <a className="heading" href={category.route}>{category.value}</a>
+                </div>
               </div>
-            </div>
-          ))
-        }
-      </div>
-    </div>);
+            ))
+          }
+        </div>
+      </div>);
   };
 
   render() {

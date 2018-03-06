@@ -80,10 +80,9 @@ export default {
     "wallet",
     "account/wallet",
     "pages",
-    "category-page",
     "category"
   ],
-  defaultVisitorRoles: ["anonymous", "guest", "product", "tag", "index", "cart/checkout", "cart/completed", "review", "pages", "category-page", "category"],
+  defaultVisitorRoles: ["anonymous", "guest", "product", "tag", "index", "cart/checkout", "cart/completed", "review", "pages", "category"],
 
   createGroups,
   /**

@@ -2,7 +2,7 @@ import { Reaction } from "/server/api";
 
 Reaction.registerPackage({
   label: "Category Page",
-  name: "category-page",
+  name: "category",
   autoEnable: true,
   settings: {
     enabled: true
