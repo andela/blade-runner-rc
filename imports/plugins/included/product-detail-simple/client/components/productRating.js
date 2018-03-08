@@ -20,15 +20,18 @@ class ProductRating extends Component {
         <div className="col-md-12">
           <div className="product-rating-details">
             <div className="react-stars-rating">
-              <StarRatingComponent
-                name="productRating"
-                starCount={5}
-                value={averageRating}
-                editing={false}
-                emptyStarColor="#EEE"
-              />
+              <div className="rating-margin">
+                <StarRatingComponent
+                  name="productRating"
+                  starCount={5}
+                  value={averageRating}
+                  editing={false}
+                  emptyStarColor="#EEE"
+                />
+              </div>
             </div>
-            <div className="react-rating-count">
+            <div className="react-rating-count tooltip">
+              <span className="tooltiptext">no of ratings</span>
               ({reviews.length})
               <Scroll type="id" element="productReviews">
                 {
